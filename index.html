@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rodriguez AI Systems</title>
+<title>TechAI Systems | AI Automation</title>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 
@@ -104,10 +105,6 @@ transform:translateY(-10px);
 box-shadow:0 10px 30px rgba(0,0,0,.5);
 }
 
-.cta{
-background:#020617;
-}
-
 form{
 max-width:500px;
 margin:auto;
@@ -116,7 +113,7 @@ flex-direction:column;
 gap:15px;
 }
 
-input,textarea,select{
+input,textarea{
 padding:12px;
 border-radius:6px;
 border:none;
@@ -126,6 +123,28 @@ footer{
 text-align:center;
 padding:40px;
 background:#020617;
+}
+
+/* modal */
+
+#modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+justify-content:center;
+align-items:center;
+}
+
+#modal-content{
+background:#1e293b;
+padding:30px;
+border-radius:10px;
+max-width:400px;
+text-align:center;
 }
 
 /* chatbot */
@@ -173,13 +192,12 @@ margin-top:5px;
 
 <nav>
 
-<h3>Rodriguez AI Systems</h3>
+<h3>TechAI-Systems</h3>
 
 <div>
 <a href="#services">Services</a>
 <a href="#demos">Automations</a>
-<a href="#workflow">AI Generator</a>
-<a href="#builder">AI Builder</a>
+<a href="#ai">AI Demo</a>
 <a href="#contact">Contact</a>
 </div>
 
@@ -235,81 +253,36 @@ margin-top:5px;
 
 <div class="card">
 <h3>Email Automation</h3>
-<p>AI automatically drafts customer email replies.</p>
-<button onclick="demo('email')">View Demo</button>
+<button onclick="showModal('AI reads emails and drafts replies automatically.')">View Demo</button>
 </div>
 
 <div class="card">
 <h3>Lead Analyzer</h3>
-<p>AI evaluates new leads and prioritizes the best ones.</p>
-<button onclick="demo('lead')">View Demo</button>
+<button onclick="showModal('AI analyzes leads and ranks them by conversion potential.')">View Demo</button>
 </div>
 
 <div class="card">
 <h3>Business Reports</h3>
-<p>AI analyzes sales data and generates insights.</p>
-<button onclick="demo('report')">View Demo</button>
+<button onclick="showModal('AI analyzes business data and generates reports automatically.')">View Demo</button>
 </div>
 
 </div>
 
 </section>
 
-<section id="workflow">
+<section id="ai">
 
-<h2>AI Workflow Generator</h2>
+<h2>AI Automation Demo</h2>
 
-<p>Describe a repetitive task in your business and generate a recommended AI automation workflow.</p>
+<p>Describe a business task and AI will suggest an automation.</p>
 
-<input id="workflowInput" placeholder="Example: responding to customer emails">
-
-<br>
-
-<button onclick="generateWorkflow()">Generate Automation</button>
-
-<p id="workflowOutput"></p>
-
-</section>
-
-<!-- NEW SILICON VALLEY STYLE BUILDER -->
-
-<section id="builder">
-
-<h2>Interactive AI Automation Builder</h2>
-
-<p>Select a workflow to simulate an AI system.</p>
-
-<select id="trigger">
-<option>New Email Received</option>
-<option>New Website Lead</option>
-<option>New Spreadsheet Data</option>
-</select>
-
-<select id="aiStep">
-<option>Analyze Text with AI</option>
-<option>Score Lead Quality</option>
-<option>Summarize Data</option>
-</select>
-
-<select id="action">
-<option>Send Automated Reply</option>
-<option>Store in CRM</option>
-<option>Generate Report</option>
-</select>
+<input id="aiInput" placeholder="Example: responding to customer emails">
 
 <br><br>
 
-<button onclick="buildAutomation()">Build Workflow</button>
+<button onclick="askAI()">Generate Automation</button>
 
-<p id="builderOutput"></p>
-
-</section>
-
-<section class="cta">
-
-<h2>Ready To Automate Your Business?</h2>
-
-<button onclick="scrollToSection('contact')">Book Free Consultation</button>
+<p id="aiOutput"></p>
 
 </section>
 
@@ -317,34 +290,54 @@ margin-top:5px;
 
 <h2>Contact</h2>
 
-<form onsubmit="sendForm(event)">
+<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
 
-<input placeholder="Name" required>
-<input type="email" placeholder="Email" required>
-<input placeholder="Business Type">
+<input type="hidden" name="form-name" value="contact">
 
-<textarea placeholder="What would you like to automate?"></textarea>
+<p hidden>
+<label>Don't fill this out: <input name="bot-field"></label>
+</p>
 
-<button type="submit">Send Message</button>
+<input name="name" placeholder="Name" required>
+<input name="email" type="email" placeholder="Email" required>
+<input name="business" placeholder="Business Type">
+<textarea name="message" placeholder="What would you like to automate?"></textarea>
+
+<button type="submit" onclick="showModal('Message sent! I will review your automation request soon.')">
+Send Message
+</button>
 
 </form>
 
 </section>
 
 <footer>
-<p>© 2026 Rodriguez AI Systems</p>
+
+<p>© 2026 TechAI-Systems</p>
+<p>Contact: Pete7814@gmail.com</p>
+
 </footer>
+
+<div id="modal">
+
+<div id="modal-content">
+
+<p id="modal-text"></p>
+
+<button onclick="closeModal()">Close</button>
+
+</div>
+
+</div>
 
 <div id="chatbot">
 
-<div id="chat-header" onclick="toggleChat()">
-AI Assistant
-</div>
+<div id="chat-header" onclick="toggleChat()">AI Assistant</div>
 
 <div id="chat-body">
 
 <div id="chat-messages">
-<p><b>AI:</b> Hi! I'm the AI assistant for Rodriguez AI Systems. How can I help optimize your business today?</p>
+<p><b>AI:</b> Hi! I'm the AI assistant for TechAI-Systems. How can I help automate your business?</p>
 </div>
 
 <input id="chat-input" placeholder="Ask something..." onkeydown="chatReply(event)">
@@ -359,83 +352,29 @@ function scrollToSection(id){
 document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-function sendForm(e){
-e.preventDefault();
-alert("Message sent! I'll contact you soon.");
+function showModal(text){
+document.getElementById("modal-text").innerText=text
+document.getElementById("modal").style.display="flex"
 }
 
-function demo(type){
-
-let message="";
-
-if(type==="email")
-message="AI reads incoming emails and drafts professional replies automatically.";
-
-if(type==="lead")
-message="AI analyzes leads and ranks them based on conversion potential.";
-
-if(type==="report")
-message="AI analyzes business data and generates insights automatically.";
-
-alert(message);
-
+function closeModal(){
+document.getElementById("modal").style.display="none"
 }
 
-function generateWorkflow(){
+async function askAI(){
 
-let input=document.getElementById("workflowInput").value.toLowerCase()
+let input=document.getElementById("aiInput").value
 
-let result="Recommended AI Workflow:\n\n"
+document.getElementById("aiOutput").innerText="Thinking..."
 
-if(input.includes("email")){
-result+=`
-Trigger: New Gmail Email
-AI Step: Understand message intent
-Action: Generate response
-Action: Send reply automatically`
-}
+let res=await fetch("/.netlify/functions/ai",{
+method:"POST",
+body:JSON.stringify({prompt:input})
+})
 
-else if(input.includes("lead")){
-result+=`
-Trigger: New Website Lead
-AI Step: Score lead quality
-Action: Send best leads to sales`
-}
+let data=await res.json()
 
-else{
-result+=`
-Trigger: Task detected
-AI Step: Analyze workflow
-Action: Recommend automation`
-}
-
-document.getElementById("workflowOutput").innerText=result
-
-}
-
-function buildAutomation(){
-
-let trigger=document.getElementById("trigger").value
-let ai=document.getElementById("aiStep").value
-let action=document.getElementById("action").value
-
-let output=`
-Automation Workflow
-
-Trigger:
-${trigger}
-
-AI Processing:
-${ai}
-
-Action:
-${action}
-
-Recommended Tools:
-Zapier + OpenAI + CRM Integration
-`
-
-document.getElementById("builderOutput").innerText=output
+document.getElementById("aiOutput").innerText=data.reply
 
 }
 
@@ -457,9 +396,6 @@ messages.innerHTML+=`<p><b>You:</b> ${text}</p>`;
 
 let reply="AI automation can save businesses many hours every week.";
 
-if(text.toLowerCase().includes("price"))
-reply="Most AI automation systems cost between $500 and $3000 depending on complexity.";
-
 messages.innerHTML+=`<p><b>AI:</b> ${reply}</p>`;
 
 input.value="";
@@ -470,15 +406,13 @@ messages.scrollTop=messages.scrollHeight;
 }
 
 particlesJS("particles-js",{
-
 particles:{
 number:{value:80},
 size:{value:3},
 move:{speed:1},
 line_linked:{enable:true}
 }
-
-});
+})
 
 </script>
 
