@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rodriguez AI Systems</title>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+color:white;
+background:linear-gradient(-45deg,#020617,#0f172a,#1e293b,#020617);
+background-size:400% 400%;
+animation:bg 15s infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-1;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:rgba(0,0,0,.4);
+backdrop-filter:blur(10px);
+position:sticky;
+top:0;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+.hero{
+text-align:center;
+padding:120px 20px;
+}
+
+.hero h1{
+font-size:48px;
+}
+
+button{
+background:#22c55e;
+border:none;
+padding:14px 28px;
+border-radius:8px;
+margin:10px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+.secondary{
+background:#334155;
+}
+
+section{
+padding:80px 20px;
+max-width:1000px;
+margin:auto;
+text-align:center;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+margin-top:40px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+padding:30px;
+border-radius:12px;
+backdrop-filter:blur(12px);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.cta{
+background:#020617;
+}
+
+form{
+max-width:500px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+input,textarea,select{
+padding:12px;
+border-radius:6px;
+border:none;
+}
+
+footer{
+text-align:center;
+padding:40px;
+background:#020617;
+}
+
+/* chatbot */
+
+#chatbot{
+position:fixed;
+bottom:20px;
+right:20px;
+width:260px;
+}
+
+#chat-header{
+background:#22c55e;
+padding:10px;
+cursor:pointer;
+border-radius:8px 8px 0 0;
+}
+
+#chat-body{
+display:none;
+background:#1e293b;
+padding:10px;
+border-radius:0 0 8px 8px;
+}
+
+#chat-messages{
+height:150px;
+overflow-y:auto;
+font-size:14px;
+}
+
+#chat-input{
+width:100%;
+padding:8px;
+margin-top:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<nav>
+
+<h3>Rodriguez AI Systems</h3>
+
+<div>
+<a href="#services">Services</a>
+<a href="#demos">Automations</a>
+<a href="#workflow">AI Generator</a>
+<a href="#builder">AI Builder</a>
+<a href="#contact">Contact</a>
+</div>
+
+</nav>
+
+<header class="hero">
+
+<h1>Optimize Your Business With AI</h1>
+
+<p>AI automation systems that save time, reduce costs, and increase efficiency.</p>
+
+<button onclick="scrollToSection('services')">Explore Services</button>
+
+<button class="secondary" onclick="scrollToSection('contact')">Free AI Audit</button>
+
+</header>
+
+<section id="services">
+
+<h2>AI Services</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Workflow Automation</h3>
+<p>Automate repetitive tasks like reporting, emails, and data entry.</p>
+</div>
+
+<div class="card">
+<h3>AI Customer Support</h3>
+<p>Deploy AI assistants that answer customer questions instantly.</p>
+</div>
+
+<div class="card">
+<h3>AI Data Analysis</h3>
+<p>Transform business data into automated insights.</p>
+</div>
+
+<div class="card">
+<h3>Lead Qualification</h3>
+<p>AI identifies high value leads automatically.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="demos">
+
+<h2>Example Automations</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Email Automation</h3>
+<p>AI automatically drafts customer email replies.</p>
+<button onclick="demo('email')">View Demo</button>
+</div>
+
+<div class="card">
+<h3>Lead Analyzer</h3>
+<p>AI evaluates new leads and prioritizes the best ones.</p>
+<button onclick="demo('lead')">View Demo</button>
+</div>
+
+<div class="card">
+<h3>Business Reports</h3>
+<p>AI analyzes sales data and generates insights.</p>
+<button onclick="demo('report')">View Demo</button>
+</div>
+
+</div>
+
+</section>
+
+<section id="workflow">
+
+<h2>AI Workflow Generator</h2>
+
+<p>Describe a repetitive task in your business and generate a recommended AI automation workflow.</p>
+
+<input id="workflowInput" placeholder="Example: responding to customer emails">
+
+<br>
+
+<button onclick="generateWorkflow()">Generate Automation</button>
+
+<p id="workflowOutput"></p>
+
+</section>
+
+<!-- NEW SILICON VALLEY STYLE BUILDER -->
+
+<section id="builder">
+
+<h2>Interactive AI Automation Builder</h2>
+
+<p>Select a workflow to simulate an AI system.</p>
+
+<select id="trigger">
+<option>New Email Received</option>
+<option>New Website Lead</option>
+<option>New Spreadsheet Data</option>
+</select>
+
+<select id="aiStep">
+<option>Analyze Text with AI</option>
+<option>Score Lead Quality</option>
+<option>Summarize Data</option>
+</select>
+
+<select id="action">
+<option>Send Automated Reply</option>
+<option>Store in CRM</option>
+<option>Generate Report</option>
+</select>
+
+<br><br>
+
+<button onclick="buildAutomation()">Build Workflow</button>
+
+<p id="builderOutput"></p>
+
+</section>
+
+<section class="cta">
+
+<h2>Ready To Automate Your Business?</h2>
+
+<button onclick="scrollToSection('contact')">Book Free Consultation</button>
+
+</section>
+
+<section id="contact">
+
+<h2>Contact</h2>
+
+<form onsubmit="sendForm(event)">
+
+<input placeholder="Name" required>
+<input type="email" placeholder="Email" required>
+<input placeholder="Business Type">
+
+<textarea placeholder="What would you like to automate?"></textarea>
+
+<button type="submit">Send Message</button>
+
+</form>
+
+</section>
+
+<footer>
+<p>© 2026 Rodriguez AI Systems</p>
+</footer>
+
+<div id="chatbot">
+
+<div id="chat-header" onclick="toggleChat()">
+AI Assistant
+</div>
+
+<div id="chat-body">
+
+<div id="chat-messages">
+<p><b>AI:</b> Hi! I'm the AI assistant for Rodriguez AI Systems. How can I help optimize your business today?</p>
+</div>
+
+<input id="chat-input" placeholder="Ask something..." onkeydown="chatReply(event)">
+
+</div>
+
+</div>
+
+<script>
+
+function scrollToSection(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+function sendForm(e){
+e.preventDefault();
+alert("Message sent! I'll contact you soon.");
+}
+
+function demo(type){
+
+let message="";
+
+if(type==="email")
+message="AI reads incoming emails and drafts professional replies automatically.";
+
+if(type==="lead")
+message="AI analyzes leads and ranks them based on conversion potential.";
+
+if(type==="report")
+message="AI analyzes business data and generates insights automatically.";
+
+alert(message);
+
+}
+
+function generateWorkflow(){
+
+let input=document.getElementById("workflowInput").value.toLowerCase()
+
+let result="Recommended AI Workflow:\n\n"
+
+if(input.includes("email")){
+result+=`
+Trigger: New Gmail Email
+AI Step: Understand message intent
+Action: Generate response
+Action: Send reply automatically`
+}
+
+else if(input.includes("lead")){
+result+=`
+Trigger: New Website Lead
+AI Step: Score lead quality
+Action: Send best leads to sales`
+}
+
+else{
+result+=`
+Trigger: Task detected
+AI Step: Analyze workflow
+Action: Recommend automation`
+}
+
+document.getElementById("workflowOutput").innerText=result
+
+}
+
+function buildAutomation(){
+
+let trigger=document.getElementById("trigger").value
+let ai=document.getElementById("aiStep").value
+let action=document.getElementById("action").value
+
+let output=`
+Automation Workflow
+
+Trigger:
+${trigger}
+
+AI Processing:
+${ai}
+
+Action:
+${action}
+
+Recommended Tools:
+Zapier + OpenAI + CRM Integration
+`
+
+document.getElementById("builderOutput").innerText=output
+
+}
+
+function toggleChat(){
+let body=document.getElementById("chat-body");
+body.style.display=body.style.display==="block"?"none":"block";
+}
+
+function chatReply(e){
+
+if(e.key==="Enter"){
+
+let input=document.getElementById("chat-input");
+let messages=document.getElementById("chat-messages");
+
+let text=input.value;
+
+messages.innerHTML+=`<p><b>You:</b> ${text}</p>`;
+
+let reply="AI automation can save businesses many hours every week.";
+
+if(text.toLowerCase().includes("price"))
+reply="Most AI automation systems cost between $500 and $3000 depending on complexity.";
+
+messages.innerHTML+=`<p><b>AI:</b> ${reply}</p>`;
+
+input.value="";
+messages.scrollTop=messages.scrollHeight;
+
+}
+
+}
+
+particlesJS("particles-js",{
+
+particles:{
+number:{value:80},
+size:{value:3},
+move:{speed:1},
+line_linked:{enable:true}
+}
+
+});
+
+</script>
+
+</body>
+</html>
