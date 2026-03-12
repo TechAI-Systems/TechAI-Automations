@@ -367,12 +367,17 @@ let input=document.getElementById("aiInput").value
 
 document.getElementById("aiOutput").innerText="Thinking..."
 
-let res=await fetch("/.netlify/functions/ai",{
+let res = await fetch("/.netlify/functions/ai",{
 method:"POST",
-body:JSON.stringify({prompt:input})
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:input
+})
 })
 
-let data=await res.json()
+let data = await res.json()
 
 document.getElementById("aiOutput").innerText=data.reply
 
@@ -383,7 +388,7 @@ let body=document.getElementById("chat-body");
 body.style.display=body.style.display==="block"?"none":"block";
 }
 
-function chatReply(e){
+async function chatReply(e){
 
 if(e.key==="Enter"){
 
@@ -394,11 +399,24 @@ let text=input.value;
 
 messages.innerHTML+=`<p><b>You:</b> ${text}</p>`;
 
-let reply="AI automation can save businesses many hours every week.";
-
-messages.innerHTML+=`<p><b>AI:</b> ${reply}</p>`;
-
 input.value="";
+
+messages.innerHTML+=`<p><b>AI:</b> Thinking...</p>`;
+
+let res = await fetch("/.netlify/functions/ai",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:text
+})
+});
+
+let data = await res.json();
+
+messages.innerHTML+=`<p><b>AI:</b> ${data.reply}</p>`;
+
 messages.scrollTop=messages.scrollHeight;
 
 }
