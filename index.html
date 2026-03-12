@@ -1,438 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TechAI Systems | AI Automation</title>
-
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-
 <style>
-
-body{
-margin:0;
-font-family:Arial;
-color:white;
-background:linear-gradient(-45deg,#020617,#0f172a,#1e293b,#020617);
-background-size:400% 400%;
-animation:bg 15s infinite;
+body {
+margin: 0;
+font-family: Arial;
+color: white;
+background: linear-gradient(-45deg, #020617, #0f172a, #1e293b, #020617);
+background-size: 400% 400%;
+animation: bg 15s infinite;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+@keyframes bg {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
 }
 
-#particles-js{
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-z-index:-1;
+#particles-js {
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+z-index: -1;
 }
 
-nav{
-display:flex;
-justify-content:space-between;
-padding:20px;
-background:rgba(0,0,0,.4);
-backdrop-filter:blur(10px);
-position:sticky;
-top:0;
+.cursor-glow {
+position: fixed;
+width: 220px;
+height: 220px;
+background: radial-gradient(circle, rgba(34, 197, 94, 0.15), transparent 70%);
+pointer-events: none;
+transform: translate(-50%, -50%);
+z-index: 0;
 }
 
-nav a{
-color:white;
-text-decoration:none;
-margin-left:20px;
+nav {
+display: flex;
+justify-content: space-between;
+padding: 20px;
+background: rgba(0, 0, 0, 0.4);
+backdrop-filter: blur(10px);
+position: sticky;
+top: 0;
 }
 
-.hero{
-text-align:center;
-padding:120px 20px;
+nav a {
+color: white;
+text-decoration: none;
+margin-left: 20px;
 }
 
-.hero h1{
-font-size:48px;
+.hero {
+text-align: center;
+padding: 120px 20px;
 }
 
-button{
-background:#22c55e;
-border:none;
-padding:14px 28px;
-border-radius:8px;
-margin:10px;
-cursor:pointer;
-transition:.3s;
+.hero h1 {
+font-size: 48px;
 }
 
-button:hover{
-transform:scale(1.05);
+button {
+background: #22c55e;
+border: none;
+padding: 14px 28px;
+border-radius: 8px;
+margin: 10px;
+cursor: pointer;
+transition: 0.3s;
 }
 
-.secondary{
-background:#334155;
+button:hover {
+transform: scale(1.05);
+box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
 }
 
-section{
-padding:80px 20px;
-max-width:1000px;
-margin:auto;
-text-align:center;
+.secondary {
+background: #334155;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:25px;
-margin-top:40px;
+section {
+padding: 80px 20px;
+max-width: 1000px;
+margin: auto;
+text-align: center;
 }
 
-.card{
-background:rgba(255,255,255,.05);
-padding:30px;
-border-radius:12px;
-backdrop-filter:blur(12px);
-transition:.3s;
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+gap: 25px;
+margin-top: 40px;
 }
 
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 10px 30px rgba(0,0,0,.5);
+.card {
+background: rgba(255, 255, 255, 0.05);
+padding: 30px;
+border-radius: 12px;
+backdrop-filter: blur(12px);
+transition: 0.3s;
 }
 
-form{
-max-width:500px;
-margin:auto;
-display:flex;
-flex-direction:column;
-gap:15px;
+.card:hover {
+transform: translateY(-10px);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-input,textarea{
-padding:12px;
-border-radius:6px;
-border:none;
+form {
+max-width: 500px;
+margin: auto;
+display: flex;
+flex-direction: column;
+gap: 15px;
 }
 
-footer{
-text-align:center;
-padding:40px;
-background:#020617;
+input, textarea {
+padding: 12px;
+border-radius: 6px;
+border: none;
 }
 
-/* modal */
-
-#modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.7);
-justify-content:center;
-align-items:center;
+footer {
+text-align: center;
+padding: 40px;
+background: #020617;
 }
 
-#modal-content{
-background:#1e293b;
-padding:30px;
-border-radius:10px;
-max-width:400px;
-text-align:center;
+#demoModal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.75);
+justify-content: center;
+align-items: center;
+z-index: 999;
 }
 
-/* chatbot */
-
-#chatbot{
-position:fixed;
-bottom:20px;
-right:20px;
-width:260px;
+.modal-content {
+background: rgba(30, 41, 59, 0.65);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(255, 255, 255, 0.1);
+box-shadow: 0 0 30px rgba(34, 197, 94, 0.25), 0 15px 50px rgba(0, 0, 0, 0.8);
+border-radius: 16px;
+padding: 40px;
+max-width: 650px;
+max-height: 80vh;
+overflow-y: auto;
 }
 
-#chat-header{
-background:#22c55e;
-padding:10px;
-cursor:pointer;
-border-radius:8px 8px 0 0;
+.close {
+cursor: pointer;
+font-size: 24px;
+float: right;
 }
 
-#chat-body{
-display:none;
-background:#1e293b;
-padding:10px;
-border-radius:0 0 8px 8px;
+#chatbot {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 260px;
 }
 
-#chat-messages{
-height:150px;
-overflow-y:auto;
-font-size:14px;
+#chat-header {
+background: #22c55e;
+padding: 10px;
+cursor: pointer;
+border-radius: 8px 8px 0 0;
 }
 
-#chat-input{
-width:100%;
-padding:8px;
-margin-top:5px;
+#chat-body {
+display: none;
+background: #1e293b;
+padding: 10px;
+border-radius: 0 0 8px 8px;
 }
 
+#chat-messages {
+height: 150px;
+overflow-y: auto;
+font-size: 14px;
+}
+
+#chat-input {
+width: 100%;
+padding: 8px;
+margin-top: 5px;
+}
 </style>
-
 </head>
 
 <body>
 
 <div id="particles-js"></div>
+<div class="cursor-glow"></div>
 
 <nav>
-
-<h3>TechAI-Systems</h3>
-
+<h3>TechAI Systems</h3>
 <div>
 <a href="#services">Services</a>
 <a href="#demos">Automations</a>
 <a href="#ai">AI Demo</a>
 <a href="#contact">Contact</a>
 </div>
-
 </nav>
 
 <header class="hero">
-
 <h1>Optimize Your Business With AI</h1>
-
 <p>AI automation systems that save time, reduce costs, and increase efficiency.</p>
-
 <button onclick="scrollToSection('services')">Explore Services</button>
-
 <button class="secondary" onclick="scrollToSection('contact')">Free AI Audit</button>
-
 </header>
 
 <section id="services">
-
 <h2>AI Services</h2>
-
 <div class="grid">
-
 <div class="card">
 <h3>Workflow Automation</h3>
 <p>Automate repetitive tasks like reporting, emails, and data entry.</p>
 </div>
-
 <div class="card">
 <h3>AI Customer Support</h3>
 <p>Deploy AI assistants that answer customer questions instantly.</p>
 </div>
-
 <div class="card">
 <h3>AI Data Analysis</h3>
 <p>Transform business data into automated insights.</p>
 </div>
-
 <div class="card">
 <h3>Lead Qualification</h3>
 <p>AI identifies high value leads automatically.</p>
 </div>
-
 </div>
-
 </section>
 
 <section id="demos">
-
 <h2>Example Automations</h2>
-
 <div class="grid">
-
 <div class="card">
 <h3>Email Automation</h3>
-<button onclick="showModal('AI reads emails and drafts replies automatically.')">View Demo</button>
+<button onclick="demo('email')">View Demo</button>
 </div>
-
 <div class="card">
 <h3>Lead Analyzer</h3>
-<button onclick="showModal('AI analyzes leads and ranks them by conversion potential.')">View Demo</button>
+<button onclick="demo('lead')">View Demo</button>
 </div>
-
 <div class="card">
 <h3>Business Reports</h3>
-<button onclick="showModal('AI analyzes business data and generates reports automatically.')">View Demo</button>
+<button onclick="demo('report')">View Demo</button>
 </div>
-
 </div>
-
 </section>
 
 <section id="ai">
-
 <h2>AI Automation Demo</h2>
-
 <p>Describe a business task and AI will suggest an automation.</p>
-
 <input id="aiInput" placeholder="Example: responding to customer emails">
-
 <br><br>
-
 <button onclick="askAI()">Generate Automation</button>
-
 <p id="aiOutput"></p>
-
 </section>
 
 <section id="contact">
-
 <h2>Contact</h2>
-
 <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-
 <input type="hidden" name="form-name" value="contact">
-
 <p hidden>
 <label>Don't fill this out: <input name="bot-field"></label>
 </p>
-
 <input name="name" placeholder="Name" required>
 <input name="email" type="email" placeholder="Email" required>
 <input name="business" placeholder="Business Type">
 <textarea name="message" placeholder="What would you like to automate?"></textarea>
-
-<button type="submit" onclick="showModal('Message sent! I will review your automation request soon.')">
-Send Message
-</button>
-
+<button type="submit">Send Message</button>
 </form>
-
 </section>
 
 <footer>
-
-<p>© 2026 TechAI-Systems</p>
+<p>© 2026 TechAI Systems</p>
 <p>Contact: Pete7814@gmail.com</p>
-
 </footer>
 
-<div id="modal">
-
-<div id="modal-content">
-
-<p id="modal-text"></p>
-
-<button onclick="closeModal()">Close</button>
-
+<div id="demoModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">✖</span>
+<h2 id="modalTitle"></h2>
+<div id="modalSteps"></div>
 </div>
-
 </div>
 
 <div id="chatbot">
-
 <div id="chat-header" onclick="toggleChat()">AI Assistant</div>
-
 <div id="chat-body">
-
 <div id="chat-messages">
-<p><b>AI:</b> Hi! I'm the AI assistant for TechAI-Systems. How can I help automate your business?</p>
+<p><b>AI:</b> Hi! I'm the AI assistant for TechAI Systems. How can I help automate your business?</p>
 </div>
-
 <input id="chat-input" placeholder="Ask something..." onkeydown="chatReply(event)">
-
 </div>
-
 </div>
 
 <script>
+const glow = document.querySelector(".cursor-glow");
 
-function scrollToSection(id){
-document.getElementById(id).scrollIntoView({behavior:"smooth"});
-}
-
-function showModal(text){
-document.getElementById("modal-text").innerText=text
-document.getElementById("modal").style.display="flex"
-}
-
-function closeModal(){
-document.getElementById("modal").style.display="none"
-}
-
-async function askAI(){
-
-let input=document.getElementById("aiInput").value
-
-document.getElementById("aiOutput").innerText="Thinking..."
-
-let res = await fetch("/.netlify/functions/ai",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-message:input
-})
-})
-
-let data = await res.json()
-
-document.getElementById("aiOutput").innerText=data.reply
-
-}
-
-function toggleChat(){
-let body=document.getElementById("chat-body");
-body.style.display=body.style.display==="block"?"none":"block";
-}
-
-async function chatReply(e){
-
-if(e.key==="Enter"){
-
-let input=document.getElementById("chat-input");
-let messages=document.getElementById("chat-messages");
-
-let text=input.value;
-
-messages.innerHTML+=`<p><b>You:</b> ${text}</p>`;
-
-input.value="";
-
-messages.innerHTML+=`<p><b>AI:</b> Thinking...</p>`;
-
-let res = await fetch("/.netlify/functions/ai",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-message:text
-})
+document.addEventListener("mousemove", e => {
+glow.style.left = e.clientX + "px";
+glow.style.top = e.clientY + "px";
 });
 
-let data = await res.json();
-
-messages.innerHTML+=`<p><b>AI:</b> ${data.reply}</p>`;
-
-messages.scrollTop=messages.scrollHeight;
-
+function scrollToSection(id) {
+document.getElementById(id).scrollIntoView({ behavior: "smooth" });
 }
 
+function demo(type) {
+let title = "";
+let content = "";
+
+if (type === "email") {
+title = "AI Email Automation";
+content = `
+<h3>Problem</h3>
+<p>Businesses spend hours replying to repetitive emails.</p>
+<h3>Workflow</h3>
+<ul>
+<li>Email received</li>
+<li>AI analyzes intent</li>
+<li>AI generates response</li>
+<li>Reply automatically sent</li>
+<li>Conversation logged to CRM</li>
+</ul>
+<h3>Estimated Time Saved</h3>
+<p>10–20 hours weekly</p>
+<h3>Typical Pricing</h3>
+<p>$500 – $1500 setup</p>
+<h3>Case Study</h3>
+<ul>
+<li>85% of emails automated</li>
+<li>12 hours saved weekly</li>
+<li>Response time reduced to under 10 minutes</li>
+</ul>
+<button onclick="scrollToSection('contact')">Build This Automation</button>
+`;
 }
 
-particlesJS("particles-js",{
-particles:{
-number:{value:80},
-size:{value:3},
-move:{speed:1},
-line_linked:{enable:true}
+if (type === "lead") {
+title = "AI Lead Qualification";
+content = `
+<h3>Problem</h3>
+<p>Sales teams waste time reviewing leads manually.</p>
+<h3>Workflow</h3>
+<ul>
+<li>Lead enters CRM</li>
+<li>AI analyzes company data</li>
+<li>AI scores lead quality</li>
+<li>Best leads sent to sales team</li>
+</ul>
+<h3>Typical Pricing</h3>
+<p>$700 – $2000</p>
+`;
 }
-})
 
+if (type === "report") {
+title = "AI Automated Business Reports";
+content = `
+<h3>Problem</h3>
+<p>Managers spend hours building reports.</p>
+<h3>Workflow</h3>
+<ul>
+<li>Data collected automatically</li>
+<li>AI analyzes trends</li>
+<li>AI generates insights</li>
+<li>Reports delivered automatically</li>
+</ul>
+<h3>Typical Pricing</h3>
+<p>$400 – $1200</p>
+`;
+}
+
+document.getElementById("modalTitle").innerHTML = title;
+document.getElementById("modalSteps").innerHTML = content;
+document.getElementById("demoModal").style.display = "flex";
+}
+
+function closeModal() {
+document.getElementById("demoModal").style.display = "none";
+}
+
+function toggleChat() {
+const body = document.getElementById("chat-body");
+body.style.display = body.style.display === "none" ? "block" : "none";
+}
+
+function chatReply(e) {
+if (e.key !== "Enter") return;
+const input = document.getElementById("chat-input");
+const messages = document.getElementById("chat-messages");
+const userMsg = input.value.trim();
+if (!userMsg) return;
+messages.innerHTML += `<p><b>You:</b> ${userMsg}</p>`;
+messages.innerHTML += `<p><b>AI:</b> Thanks for reaching out! Please use the contact form and we'll get back to you shortly.</p>`;
+input.value = "";
+messages.scrollTop = messages.scrollHeight;
+}
+
+particlesJS("particles-js", {
+particles: {
+number: { value: 80 },
+size: { value: 3 },
+move: { speed: 1 },
+line_linked: { enable: true }
+}
+});
 </script>
 
 </body>
 </html>
+
