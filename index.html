@@ -1335,4 +1335,17 @@ mode: ‘chat’,
 messages: chatHistory
 })
 });
-const data = aw
+const data = await res.json();
+removeTyping();
+const reply = data.reply || “Sorry, I couldn’t process that. Please try again.”;
+addMessage(reply, ‘ai’);
+chatHistory.push({ role: ‘assistant’, content: reply });
+} catch (err) {
+removeTyping();
+addMessage(‘Connection error. Please try again shortly.’, ‘ai’);
+}
+}
+</script>
+
+</body>
+</html>
