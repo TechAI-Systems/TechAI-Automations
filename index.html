@@ -2,317 +2,410 @@
 
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>TechAI Systems | AI Automation</title>
+
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
 <style>
-body {
-margin: 0;
-font-family: Arial;
-color: white;
-background: linear-gradient(-45deg, #020617, #0f172a, #1e293b, #020617);
-background-size: 400% 400%;
-animation: bg 15s infinite;
-}
-@keyframes bg {
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
-}
-#particles-js {
-position: fixed; width: 100%; height: 100%;
-top: 0; left: 0; z-index: -1;
-}
-.cursor-glow {
-position: fixed; width: 220px; height: 220px;
-background: radial-gradient(circle, rgba(34,197,94,0.15), transparent 70%);
-pointer-events: none; transform: translate(-50%,-50%); z-index: 0;
-}
-nav {
-display: flex; justify-content: space-between; padding: 20px;
-background: rgba(0,0,0,0.4); backdrop-filter: blur(10px);
-position: sticky; top: 0; z-index: 100;
-}
-nav a { color: white; text-decoration: none; margin-left: 20px; }
-.hero { text-align: center; padding: 120px 20px; }
-.hero h1 { font-size: 48px; }
-button {
-background: #22c55e; border: none; padding: 14px 28px;
-border-radius: 8px; margin: 10px; cursor: pointer;
-color: white; font-size: 15px; transition: 0.3s;
-}
-button:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(34,197,94,0.5); }
-.secondary { background: #334155; }
-section { padding: 80px 20px; max-width: 1000px; margin: auto; text-align: center; }
-.grid {
-display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-gap: 25px; margin-top: 40px;
-}
-.card {
-background: rgba(255,255,255,0.05); padding: 30px; border-radius: 12px;
-backdrop-filter: blur(12px); transition: 0.3s;
-}
-.card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-form { max-width: 500px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
-input, textarea {
-padding: 12px; border-radius: 6px; border: none;
-background: rgba(255,255,255,0.08); color: white; font-size: 14px;
-}
-input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.4); }
-footer { text-align: center; padding: 40px; background: #020617; }
 
-```
-/* DEMO MODAL */
-#demoModal {
-display: none; position: fixed; top: 0; left: 0;
-width: 100%; height: 100%; background: rgba(0,0,0,0.75);
-justify-content: center; align-items: center; z-index: 999;
-}
-.modal-content {
-background: rgba(30,41,59,0.65); backdrop-filter: blur(20px);
-border: 1px solid rgba(255,255,255,0.1);
-box-shadow: 0 0 30px rgba(34,197,94,0.25), 0 15px 50px rgba(0,0,0,0.8);
-border-radius: 16px; padding: 40px; max-width: 650px; width: 90%;
-max-height: 80vh; overflow-y: auto;
-}
-.modal-content h3 {
-font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-color: rgba(255,255,255,0.4); margin: 20px 0 8px;
-}
-.modal-content p, .modal-content li { color: rgba(255,255,255,0.75); line-height: 1.7; font-size: 14px; }
-.modal-content ul { padding-left: 20px; }
-.modal-content li { margin-bottom: 6px; }
-.modal-price {
-display: inline-block; background: rgba(34,197,94,0.15);
-border: 1px solid rgba(34,197,94,0.4); color: #22c55e;
-padding: 6px 14px; border-radius: 6px; font-size: 14px; margin-top: 6px;
-}
-.close { cursor: pointer; font-size: 24px; float: right; color: rgba(255,255,255,0.5); }
-.close:hover { color: white; }
-
-/* AI SUGGESTER */
-#aiInput {
-padding: 12px 16px; border-radius: 8px;
-border: 1px solid rgba(34,197,94,0.3);
-background: rgba(255,255,255,0.06); color: white;
-font-size: 14px; width: 100%; max-width: 500px; outline: none;
-}
-#aiOutput {
-margin-top: 20px; background: rgba(255,255,255,0.05);
-border: 1px solid rgba(34,197,94,0.3); border-radius: 10px;
-padding: 16px 20px; font-size: 14px; line-height: 1.75;
-text-align: left; display: none; white-space: pre-wrap;
-max-width: 500px; margin-left: auto; margin-right: auto;
+body{
+margin:0;
+font-family:Arial;
+color:white;
+background:linear-gradient(-45deg,#020617,#0f172a,#1e293b,#020617);
+background-size:400% 400%;
+animation:bg 15s infinite;
 }
 
-/* CHATBOT */
-#chatbot { position: fixed; bottom: 20px; right: 20px; width: 280px; z-index: 200; }
-#chat-header {
-background: #22c55e; padding: 12px 16px; cursor: pointer;
-border-radius: 8px 8px 0 0; font-weight: bold;
-display: flex; justify-content: space-between; align-items: center;
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
-#chat-body {
-display: none; background: #1e293b;
-border: 1px solid rgba(34,197,94,0.3); border-top: none;
-border-radius: 0 0 8px 8px;
-}
-#chat-messages {
-height: 200px; overflow-y: auto; padding: 12px;
-font-size: 13px; display: flex; flex-direction: column; gap: 8px;
-}
-.chat-msg-ai {
-background: rgba(255,255,255,0.07); padding: 8px 12px;
-border-radius: 8px; align-self: flex-start; max-width: 85%; line-height: 1.5;
-}
-.chat-msg-user {
-background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.3);
-padding: 8px 12px; border-radius: 8px; align-self: flex-end;
-max-width: 85%; line-height: 1.5;
-}
-.chat-typing { display: flex; gap: 4px; align-items: center; padding: 8px 12px; align-self: flex-start; }
-.chat-dot {
-width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
-opacity: 0.5; animation: chatblink 1.2s ease infinite;
-}
-.chat-dot:nth-child(2) { animation-delay: 0.2s; }
-.chat-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes chatblink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
-.chat-input-row { display: flex; border-top: 1px solid rgba(255,255,255,0.08); }
-#chat-input {
-flex: 1; background: transparent; border: none;
-padding: 10px 12px; color: white; font-size: 13px; outline: none;
-}
-#chat-input::placeholder { color: rgba(255,255,255,0.3); }
-#chat-send {
-background: #22c55e; border: none; padding: 0 14px;
-color: white; cursor: pointer; font-size: 14px; margin: 0;
-border-radius: 0; transition: opacity 0.2s;
-}
-#chat-send:hover { opacity: 0.85; transform: none; box-shadow: none; }
 
-/* RESERVATION MODAL */
-#reservationModal {
-display: none; position: fixed; top: 0; left: 0;
-width: 100%; height: 100%; background: rgba(0,0,0,0.82);
-justify-content: center; align-items: center;
-z-index: 999; backdrop-filter: blur(4px);
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-1;
 }
-.res-wrap {
-background: rgba(15,23,42,0.97); backdrop-filter: blur(20px);
-border: 1px solid rgba(34,197,94,0.2);
-box-shadow: 0 0 40px rgba(34,197,94,0.12), 0 20px 60px rgba(0,0,0,0.8);
-border-radius: 16px; width: 95vw; max-width: 960px;
-max-height: 90vh; overflow-y: auto;
-display: grid; grid-template-columns: 1fr 300px; position: relative;
-}
-.res-close {
-position: absolute; top: 14px; right: 18px;
-background: none; border: none; color: rgba(255,255,255,0.4);
-font-size: 20px; cursor: pointer; z-index: 10; margin: 0; padding: 4px 8px;
-}
-.res-close:hover { color: white; transform: none; box-shadow: none; }
-.res-floor-side { padding: 28px 24px; border-right: 1px solid rgba(255,255,255,0.07); }
-.res-title { font-size: 20px; font-weight: bold; color: #22c55e; margin-bottom: 4px; }
-.res-subtitle { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
-.res-legend { display: flex; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: rgba(255,255,255,0.4); }
-.legend-dot { width: 9px; height: 9px; border-radius: 3px; }
-.l-avail { background: rgba(34,197,94,0.4); border: 1px solid #22c55e; }
-.l-booked { background: rgba(239,68,68,0.4); border: 1px solid #f87171; }
-.l-sel { background: #22c55e; }
-.floor-plan {
-position: relative; background: rgba(0,0,0,0.3);
-border: 1px solid rgba(255,255,255,0.07);
-border-radius: 12px; padding: 14px; min-height: 390px;
-}
-.zone-lbl {
-position: absolute; font-size: 8px; letter-spacing: 2px;
-text-transform: uppercase; color: rgba(255,255,255,0.12); pointer-events: none;
-}
-.tbl {
-position: absolute; display: flex; flex-direction: column;
-align-items: center; justify-content: center;
-border-radius: 8px; cursor: pointer; transition: all 0.3s ease;
-border: 1px solid rgba(34,197,94,0.35);
-background: rgba(34,197,94,0.07);
-box-shadow: 0 0 10px rgba(34,197,94,0.18);
-font-size: 10px; color: #22c55e; user-select: none;
-}
-.tbl:hover { border-color: #22c55e; box-shadow: 0 0 22px rgba(34,197,94,0.45); transform: scale(1.07); z-index: 5; }
-.tbl.booked { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.45); box-shadow: 0 0 10px rgba(239,68,68,0.18); color: #f87171; cursor: not-allowed; }
-.tbl.booked:hover { transform: none; box-shadow: 0 0 10px rgba(239,68,68,0.18); }
-.tbl.selected { background: rgba(34,197,94,0.2); border-color: #22c55e; box-shadow: 0 0 28px rgba(34,197,94,0.55); transform: scale(1.1); z-index: 6; }
-.tbl-num { font-weight: bold; font-size: 11px; line-height: 1; }
-.tbl-cap { font-size: 8px; opacity: 0.7; margin-top: 2px; }
-.tbl-tip {
-position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
-background: #0f172a; border: 1px solid #22c55e; color: white;
-font-size: 10px; padding: 4px 9px; border-radius: 5px;
-white-space: nowrap; pointer-events: none; opacity: 0;
-transition: opacity 0.2s; z-index: 20;
-}
-.tbl:hover .tbl-tip { opacity: 1; }
-.res-panel-side { padding: 24px 20px; display: flex; flex-direction: column; }
-.res-panel-title { font-size: 17px; font-weight: bold; margin-bottom: 6px; }
-.res-panel-hint { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 18px; line-height: 1.5; }
-.res-badge {
-background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
-color: #22c55e; font-size: 10px; padding: 7px 11px;
-border-radius: 6px; margin-bottom: 12px;
-}
-.res-form { display: flex; flex-direction: column; gap: 9px; }
-.res-form input, .res-form select, .res-form textarea {
-padding: 9px 12px; border-radius: 7px;
-border: 1px solid rgba(255,255,255,0.1);
-background: rgba(255,255,255,0.06); color: white;
-font-size: 12px; outline: none; width: 100%;
-box-sizing: border-box; transition: border-color 0.2s;
-}
-.res-form input:focus, .res-form select:focus, .res-form textarea:focus { border-color: #22c55e; }
-.res-form input::placeholder, .res-form textarea::placeholder { color: rgba(255,255,255,0.25); }
-.res-form select option { background: #0f172a; }
-.res-form textarea { resize: none; height: 62px; }
-.res-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-.res-confirm-btn {
-background: #22c55e; border: none; padding: 11px; border-radius: 8px;
-color: white; font-weight: bold; font-size: 13px; cursor: pointer;
-width: 100%; margin: 4px 0 0; transition: 0.2s;
-}
-.res-confirm-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(34,197,94,0.4); }
-.res-back-btn {
-background: transparent; border: 1px solid rgba(255,255,255,0.12);
-padding: 9px; border-radius: 8px; color: rgba(255,255,255,0.4);
-font-size: 11px; cursor: pointer; width: 100%; margin: 0; transition: 0.2s;
-}
-.res-back-btn:hover { border-color: rgba(255,255,255,0.3); color: white; transform: none; box-shadow: none; }
-.sms-popup {
-position: absolute; top: 14px; left: 50%;
-transform: translateX(-50%) translateY(-90px);
-background: #1c1c1e; border: 1px solid rgba(255,255,255,0.15);
-border-radius: 14px; padding: 12px 15px; width: 260px;
-box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-opacity: 0; transition: all 0.5s cubic-bezier(0.34,1.56,0.64,1);
-z-index: 50; pointer-events: none;
-}
-.sms-popup.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-.sms-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
-.sms-ico {
-width: 24px; height: 24px; border-radius: 5px; background: #22c55e;
-display: flex; align-items: center; justify-content: center;
-font-size: 12px; flex-shrink: 0;
-}
-.sms-app { font-size: 10px; font-weight: bold; color: white; }
-.sms-when { font-size: 9px; color: rgba(255,255,255,0.35); margin-left: auto; }
-.sms-body { font-size: 11px; color: rgba(255,255,255,0.8); line-height: 1.5; }
-.res-success {
-display: none; flex-direction: column;
-align-items: center; text-align: center; padding: 28px 16px; gap: 12px;
-}
-.res-success-ico {
-width: 56px; height: 56px; border-radius: 50%;
-background: rgba(34,197,94,0.1); border: 2px solid #22c55e;
-display: flex; align-items: center; justify-content: center; font-size: 24px;
-box-shadow: 0 0 28px rgba(34,197,94,0.3); animation: gpulse 2s ease infinite;
-}
-@keyframes gpulse { 0%,100%{box-shadow:0 0 20px rgba(34,197,94,0.25)} 50%{box-shadow:0 0 38px rgba(34,197,94,0.5)} }
-.res-success h3 { font-size: 18px; color: #22c55e; margin: 0; }
-.res-success p { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0; max-width: 220px; }
-.res-details {
-background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.2);
-border-radius: 8px; padding: 11px 14px; font-size: 10px; color: #22c55e;
-text-align: left; width: 100%; line-height: 1.9;
-white-space: pre-wrap; box-sizing: border-box;
-}
-.res-reset-btn {
-background: #22c55e; border: none; padding: 10px; border-radius: 8px;
-color: white; font-weight: bold; font-size: 12px; cursor: pointer;
-width: 100%; margin: 0; transition: 0.2s;
-}
-.res-reset-btn:hover { transform: scale(1.02); box-shadow: 0 0 18px rgba(34,197,94,0.4); }
-.res-cta-btn {
-background: transparent; border: 1px solid rgba(255,255,255,0.12);
-padding: 9px; border-radius: 8px; color: rgba(255,255,255,0.5);
-font-size: 11px; cursor: pointer; width: 100%; margin: 0; transition: 0.2s;
-}
-.res-cta-btn:hover { border-color: #22c55e; color: #22c55e; transform: none; box-shadow: none; }
 
-@media(max-width:700px) {
-.res-wrap { grid-template-columns: 1fr; }
-.res-floor-side { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:rgba(0,0,0,.4);
+backdrop-filter:blur(10px);
+position:sticky;
+top:0;
+z-index:100;
 }
-```
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+.hero{
+text-align:center;
+padding:120px 20px;
+}
+
+.hero h1{
+font-size:48px;
+}
+
+button{
+background:#22c55e;
+border:none;
+padding:14px 28px;
+border-radius:8px;
+margin:10px;
+cursor:pointer;
+transition:.3s;
+color:white;
+font-size:14px;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+.secondary{
+background:#334155;
+}
+
+section{
+padding:80px 20px;
+max-width:1000px;
+margin:auto;
+text-align:center;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+margin-top:40px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+padding:30px;
+border-radius:12px;
+backdrop-filter:blur(12px);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+form{
+max-width:500px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+input,textarea{
+padding:12px;
+border-radius:6px;
+border:none;
+}
+
+footer{
+text-align:center;
+padding:40px;
+background:#020617;
+}
+
+/* ── MODAL (upgraded) ── */
+#modal{
+display:none;position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,.75);
+justify-content:center;align-items:center;
+z-index:999;backdrop-filter:blur(4px);
+}
+#modal-content{
+background:rgba(30,41,59,0.65);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:0 0 30px rgba(34,197,94,0.25),0 15px 50px rgba(0,0,0,0.8);
+padding:40px;border-radius:16px;
+max-width:560px;width:90%;max-height:80vh;
+overflow-y:auto;text-align:left;position:relative;
+}
+#modal-content h2{font-size:22px;color:#22c55e;margin:0 0 20px 0;}
+.msec{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin:20px 0 6px 0;display:block;}
+#modal-content p{color:rgba(255,255,255,0.75);line-height:1.7;font-size:14px;margin:0 0 8px 0;}
+#modal-content ul{padding-left:20px;margin:0 0 8px 0;}
+#modal-content li{color:rgba(255,255,255,0.75);line-height:1.7;font-size:14px;margin-bottom:5px;}
+.mprice{display:inline-block;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:#22c55e;padding:6px 14px;border-radius:6px;font-size:14px;margin-top:4px;}
+.mclose{position:absolute;top:14px;right:18px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:20px;cursor:pointer;margin:0;padding:4px 8px;transition:color .2s;}
+.mclose:hover{color:white;transform:none;box-shadow:none;}
+.mcta{margin-top:24px;width:100%;background:#22c55e;}
+
+/* ── ORIGINAL CHATBOT (unchanged) ── */
+#chatbot{
+position:fixed;
+bottom:20px;
+right:20px;
+width:260px;
+z-index:200;
+}
+
+#chat-header{
+background:#22c55e;
+padding:10px;
+cursor:pointer;
+border-radius:8px 8px 0 0;
+font-weight:bold;
+}
+
+#chat-body{
+display:none;
+background:#1e293b;
+border-radius:0 0 8px 8px;
+overflow:hidden;
+}
+
+#chat-messages{
+height:200px;
+overflow-y:auto;
+font-size:13px;
+padding:10px;
+display:flex;
+flex-direction:column;
+gap:6px;
+}
+
+.cmsg-ai{
+background:rgba(255,255,255,0.07);
+padding:7px 11px;
+border-radius:8px;
+align-self:flex-start;
+max-width:88%;
+line-height:1.5;
+}
+
+.cmsg-user{
+background:rgba(34,197,94,0.18);
+border:1px solid rgba(34,197,94,0.3);
+padding:7px 11px;
+border-radius:8px;
+align-self:flex-end;
+max-width:88%;
+line-height:1.5;
+}
+
+.cmsg-typing{
+display:flex;
+gap:4px;
+align-items:center;
+padding:7px 11px;
+align-self:flex-start;
+}
+
+.cdot{
+width:6px;height:6px;border-radius:50%;
+background:#22c55e;opacity:0.5;
+animation:cdotblink 1.2s ease infinite;
+}
+.cdot:nth-child(2){animation-delay:.2s}
+.cdot:nth-child(3){animation-delay:.4s}
+@keyframes cdotblink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+
+.chat-input-row{
+display:flex;
+border-top:1px solid rgba(255,255,255,0.08);
+}
+
+#chat-input{
+flex:1;
+background:transparent;
+border:none;
+padding:9px 12px;
+color:white;
+font-size:13px;
+outline:none;
+}
+
+#chat-send{
+background:#22c55e;
+border:none;
+padding:0 14px;
+color:white;
+cursor:pointer;
+font-size:14px;
+margin:0;
+border-radius:0;
+transition:opacity .2s;
+}
+#chat-send:hover{opacity:.85;transform:none;}
+
+/* ── RESERVATION MODAL ── */
+#res-modal{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.75);
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.res-wrap{
+background:#1e293b;
+border-radius:16px;
+border:1px solid rgba(34,197,94,0.25);
+box-shadow:0 0 40px rgba(34,197,94,0.12),0 20px 60px rgba(0,0,0,.8);
+width:95vw;
+max-width:960px;
+max-height:90vh;
+overflow-y:auto;
+display:grid;
+grid-template-columns:1fr 300px;
+position:relative;
+}
+
+.res-close{
+position:absolute;top:14px;right:18px;
+background:none;border:none;
+color:rgba(255,255,255,.4);font-size:20px;
+cursor:pointer;margin:0;padding:4px 8px;z-index:10;
+}
+.res-close:hover{color:white;transform:none;box-shadow:none;}
+
+.res-left{padding:28px 24px;border-right:1px solid rgba(255,255,255,.07);}
+
+.res-title{font-size:20px;font-weight:bold;color:#22c55e;margin-bottom:4px;}
+.res-sub{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+
+.res-legend{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,.4);}
+.leg-dot{width:9px;height:9px;border-radius:3px;}
+.l-av{background:rgba(34,197,94,.4);border:1px solid #22c55e;}
+.l-bk{background:rgba(239,68,68,.4);border:1px solid #f87171;}
+.l-sl{background:#22c55e;}
+
+.floor{
+position:relative;
+background:rgba(0,0,0,.3);
+border:1px solid rgba(255,255,255,.07);
+border-radius:12px;
+padding:14px;
+min-height:390px;
+}
+
+.zlbl{
+position:absolute;font-size:8px;letter-spacing:2px;
+text-transform:uppercase;color:rgba(255,255,255,.12);pointer-events:none;
+}
+
+.tbl{
+position:absolute;
+display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+border-radius:8px;cursor:pointer;
+transition:all .3s ease;
+border:1px solid rgba(34,197,94,.35);
+background:rgba(34,197,94,.07);
+box-shadow:0 0 10px rgba(34,197,94,.18);
+font-size:10px;color:#22c55e;user-select:none;
+}
+.tbl:hover{border-color:#22c55e;box-shadow:0 0 22px rgba(34,197,94,.45);transform:scale(1.07);z-index:5;}
+.tbl.booked{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.45);box-shadow:0 0 10px rgba(239,68,68,.18);color:#f87171;cursor:not-allowed;}
+.tbl.booked:hover{transform:none;box-shadow:0 0 10px rgba(239,68,68,.18);}
+.tbl.selected{background:rgba(34,197,94,.2);border-color:#22c55e;box-shadow:0 0 28px rgba(34,197,94,.55);transform:scale(1.1);z-index:6;}
+.tbl-n{font-weight:bold;font-size:11px;line-height:1;}
+.tbl-c{font-size:8px;opacity:.7;margin-top:2px;}
+.tbl-tip{
+position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+background:#0f172a;border:1px solid #22c55e;color:white;
+font-size:10px;padding:4px 9px;border-radius:5px;
+white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;z-index:20;
+}
+.tbl:hover .tbl-tip{opacity:1;}
+
+/* SMS popup */
+.sms-pop{
+position:absolute;top:14px;left:50%;
+transform:translateX(-50%) translateY(-90px);
+background:#1c1c1e;border:1px solid rgba(255,255,255,.15);
+border-radius:14px;padding:12px 15px;width:260px;
+box-shadow:0 20px 50px rgba(0,0,0,.9);
+opacity:0;transition:all .5s cubic-bezier(.34,1.56,.64,1);
+z-index:50;pointer-events:none;
+}
+.sms-pop.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.sms-hdr{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.sms-ico{width:24px;height:24px;border-radius:5px;background:#22c55e;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.sms-app{font-size:10px;font-weight:bold;color:white;}
+.sms-when{font-size:9px;color:rgba(255,255,255,.35);margin-left:auto;}
+.sms-body{font-size:11px;color:rgba(255,255,255,.8);line-height:1.5;}
+
+/* Booking panel */
+.res-right{padding:24px 20px;display:flex;flex-direction:column;}
+.res-panel-title{font-size:17px;font-weight:bold;margin-bottom:6px;}
+.res-panel-hint{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:18px;line-height:1.5;}
+.res-badge{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#22c55e;font-size:10px;padding:7px 11px;border-radius:6px;margin-bottom:12px;}
+.res-form{display:flex;flex-direction:column;gap:9px;}
+.res-form input,.res-form select,.res-form textarea{
+padding:9px 12px;border-radius:7px;
+border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.06);color:white;
+font-size:12px;outline:none;width:100%;
+box-sizing:border-box;transition:border-color .2s;
+}
+.res-form input:focus,.res-form select:focus,.res-form textarea:focus{border-color:#22c55e;}
+.res-form input::placeholder,.res-form textarea::placeholder{color:rgba(255,255,255,.25);}
+.res-form select option{background:#0f172a;}
+.res-form textarea{resize:none;height:62px;}
+.res-row2{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.res-confirm{background:#22c55e;border:none;padding:11px;border-radius:8px;color:white;font-weight:bold;font-size:13px;cursor:pointer;width:100%;margin:4px 0 0;transition:.2s;}
+.res-confirm:hover{transform:scale(1.02);box-shadow:0 0 20px rgba(34,197,94,.4);}
+.res-back{background:transparent;border:1px solid rgba(255,255,255,.12);padding:9px;border-radius:8px;color:rgba(255,255,255,.4);font-size:11px;cursor:pointer;width:100%;margin:0;transition:.2s;}
+.res-back:hover{border-color:rgba(255,255,255,.3);color:white;transform:none;box-shadow:none;}
+
+/* Success */
+.res-success{display:none;flex-direction:column;align-items:center;text-align:center;padding:28px 16px;gap:12px;}
+.res-sico{width:56px;height:56px;border-radius:50%;background:rgba(34,197,94,.1);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 0 28px rgba(34,197,94,.3);animation:gpulse 2s ease infinite;}
+@keyframes gpulse{0%,100%{box-shadow:0 0 20px rgba(34,197,94,.25)}50%{box-shadow:0 0 38px rgba(34,197,94,.5)}}
+.res-success h3{font-size:18px;color:#22c55e;margin:0;}
+.res-success p{font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;margin:0;max-width:220px;}
+.res-det{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:11px 14px;font-size:10px;color:#22c55e;text-align:left;width:100%;line-height:1.9;white-space:pre-wrap;box-sizing:border-box;}
+.res-reset{background:#22c55e;border:none;padding:10px;border-radius:8px;color:white;font-weight:bold;font-size:12px;cursor:pointer;width:100%;margin:0;transition:.2s;}
+.res-reset:hover{transform:scale(1.02);box-shadow:0 0 18px rgba(34,197,94,.4);}
+.res-cta{background:transparent;border:1px solid rgba(255,255,255,.12);padding:9px;border-radius:8px;color:rgba(255,255,255,.5);font-size:11px;cursor:pointer;width:100%;margin:0;transition:.2s;}
+.res-cta:hover{border-color:#22c55e;color:#22c55e;transform:none;box-shadow:none;}
+
+@media(max-width:700px){
+.res-wrap{grid-template-columns:1fr;}
+.res-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);}
+}
 
 </style>
+
 </head>
+
 <body>
 
 <div id="particles-js"></div>
-<div class="cursor-glow" id="cursorGlow"></div>
 
 <nav>
-<h3>TechAI Systems</h3>
+<h3>TechAI-Systems</h3>
 <div>
 <a href="#services">Services</a>
 <a href="#demos">Automations</a>
@@ -328,64 +421,82 @@ font-size: 11px; cursor: pointer; width: 100%; margin: 0; transition: 0.2s;
 <button class="secondary" onclick="scrollToSection('contact')">Free AI Audit</button>
 </header>
 
-<!-- SERVICES -->
+<!-- SERVICES — original 4 + 2 new -->
 
 <section id="services">
 <h2>AI Services</h2>
 <div class="grid">
+
 <div class="card">
-<h3>⚙️ Workflow Automation</h3>
+<h3>Workflow Automation</h3>
 <p>Automate repetitive tasks like reporting, emails, and data entry.</p>
 </div>
+
 <div class="card">
-<h3>🤖 AI Customer Support</h3>
+<h3>AI Customer Support</h3>
 <p>Deploy AI assistants that answer customer questions instantly.</p>
 </div>
+
 <div class="card">
-<h3>📊 AI Data Analysis</h3>
+<h3>AI Data Analysis</h3>
 <p>Transform business data into automated insights.</p>
 </div>
+
 <div class="card">
-<h3>🎯 Lead Qualification</h3>
+<h3>Lead Qualification</h3>
 <p>AI identifies high value leads automatically.</p>
 </div>
+
+<!-- NEW: Reputation Management -->
+
 <div class="card">
 <h3>⭐ AI Reputation Management</h3>
-<p>Auto-respond to Google & Yelp reviews, get instant alerts on negatives, and prompt happy customers to leave reviews — all on autopilot.</p>
+<p>Auto-respond to Google & Yelp reviews, get instant alerts on negative feedback, and prompt happy customers to leave reviews — all on autopilot.</p>
 </div>
+
+<!-- NEW: Appointment Booking -->
+
 <div class="card">
 <h3>📅 AI Appointment Booking</h3>
 <p>A 24/7 AI booking assistant that handles scheduling, sends reminders, and cuts no-shows without any staff involvement.</p>
 </div>
+
 </div>
 </section>
 
-<!-- DEMOS -->
+<!-- DEMOS — original 3 + reservation demo card -->
 
 <section id="demos">
 <h2>Example Automations</h2>
 <div class="grid">
+
 <div class="card">
 <h3>Email Automation</h3>
-<button onclick="demo('email')">View Demo</button>
+<button onclick="openDemo('email')">View Demo</button>
 </div>
+
 <div class="card">
 <h3>Lead Analyzer</h3>
-<button onclick="demo('lead')">View Demo</button>
+<button onclick="openDemo('lead')">View Demo</button>
 </div>
+
 <div class="card">
 <h3>Business Reports</h3>
-<button onclick="demo('report')">View Demo</button>
+<button onclick="openDemo('report')">View Demo</button>
 </div>
-<div class="card" style="border:1px solid rgba(34,197,94,0.4);background:rgba(34,197,94,0.04);">
+
+<!-- NEW: Reservation demo card -->
+
+<div class="card" style="border:1px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.04);">
 <h3>📅 AI Reservation System</h3>
 <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;">Live floor plan, real table booking, and automated SMS — see the full system working.</p>
-<button onclick="openReservationDemo()">See Live Demo →</button>
+<button onclick="openResModal()">See Live Demo →</button>
 </div>
+
 </div>
 </section>
 
-<!-- AI SUGGESTER -->
+<!-- AI SUGGESTER (unchanged) -->
 
 <section id="ai">
 <h2>AI Automation Demo</h2>
@@ -393,10 +504,10 @@ font-size: 11px; cursor: pointer; width: 100%; margin: 0; transition: 0.2s;
 <input id="aiInput" placeholder="Example: responding to customer emails">
 <br><br>
 <button onclick="askAI()">Generate Automation</button>
-<div id="aiOutput"></div>
+<p id="aiOutput"></p>
 </section>
 
-<!-- CONTACT -->
+<!-- CONTACT (unchanged) -->
 
 <section id="contact">
 <h2>Contact</h2>
@@ -407,98 +518,115 @@ font-size: 11px; cursor: pointer; width: 100%; margin: 0; transition: 0.2s;
 <input name="email" type="email" placeholder="Email" required>
 <input name="business" placeholder="Business Type">
 <textarea name="message" placeholder="What would you like to automate?"></textarea>
-<button type="submit">Send Message</button>
+<button type="submit" onclick="showModal('Message sent! I will review your automation request soon.')">Send Message</button>
 </form>
 </section>
 
 <footer>
-<p>© 2026 TechAI Systems</p>
-<p>Contact: Pete7814@gmail.com</p>
+<p>© 2026 TechAI-Systems</p>
+<p>Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3363564756040b020773545e525a5f1d505c5e">[email&#160;protected]</a></p>
 </footer>
 
-<!-- ORIGINAL DEMO MODAL -->
+<!-- DEMO MODAL (upgraded) -->
 
-<div id="demoModal">
-<div class="modal-content">
-<span class="close" onclick="closeModal()">✖</span>
-<h2 id="modalTitle"></h2>
-<div id="modalSteps"></div>
-<br>
-<button onclick="scrollToSection('contact');closeModal()">Build This For Me →</button>
+<div id="modal" onclick="if(event.target===this)closeModal()">
+<div id="modal-content">
+<button class="mclose" onclick="closeModal()">&#x2715;</button>
+<h2 id="modal-title"></h2>
+<div id="modal-body"></div>
+<button class="mcta" onclick="scrollToSection('contact');closeModal()">Build This For Me &#x2192;</button>
 </div>
 </div>
 
-<!-- RESERVATION MODAL -->
+<!-- RESERVATION MODAL (new) -->
 
-<div id="reservationModal" onclick="if(event.target===this)closeReservationDemo()">
+<div id="res-modal" onclick="if(event.target===this)closeResModal()">
 <div class="res-wrap">
 
-```
-<div class="res-floor-side">
+<!-- LEFT: Floor plan -->
+
+<div class="res-left">
 <div class="res-title">Demo Vista Restaurant</div>
-<div class="res-subtitle">// Interactive Floor Plan · Click a table to reserve</div>
+<div class="res-sub">// Interactive Floor Plan · Click a table to reserve</div>
 <div class="res-legend">
-<div class="legend-item"><div class="legend-dot l-avail"></div>Available</div>
-<div class="legend-item"><div class="legend-dot l-sel"></div>Selected</div>
-<div class="legend-item"><div class="legend-dot l-booked"></div>Booked</div>
+<div class="leg-item"><div class="leg-dot l-av"></div>Available</div>
+<div class="leg-item"><div class="leg-dot l-sl"></div>Selected</div>
+<div class="leg-item"><div class="leg-dot l-bk"></div>Booked</div>
 </div>
 
-<div class="floor-plan" id="floorPlan">
-<div class="sms-popup" id="smsPopup">
+<div class="floor" id="floorPlan">
+
+<!-- SMS popup -->
+
+<div class="sms-pop" id="smsPop">
 <div class="sms-hdr">
 <div class="sms-ico">💬</div>
-<div><div class="sms-app">TechAI Bookings</div><div style="font-size:9px;color:rgba(255,255,255,0.35);">SMS Automation</div></div>
+<div><div class="sms-app">TechAI Bookings</div><div style="font-size:9px;color:rgba(255,255,255,.35);">SMS Automation</div></div>
 <div class="sms-when">now</div>
 </div>
 <div class="sms-body" id="smsText">New reservation at Demo Vista</div>
 </div>
 
-<div class="zone-lbl" style="top:5px;left:8px;">Main Dining</div>
-<div class="zone-lbl" style="top:5px;right:45px;">Private Room</div>
-<div class="zone-lbl" style="bottom:85px;left:8px;">Bar</div>
-<div class="zone-lbl" style="bottom:6px;left:8px;">Patio</div>
+<!-- Zone labels -->
 
-<!-- 2-tops -->
-<div class="tbl" id="t1" style="width:48px;height:48px;top:32px;left:14px" onclick="selectTable(1)"><div class="tbl-tip">Table 1 · 2 seats</div><div class="tbl-num">T1</div><div class="tbl-cap">2 seats</div></div>
-<div class="tbl" id="t2" style="width:48px;height:48px;top:32px;left:72px" onclick="selectTable(2)"><div class="tbl-tip">Table 2 · 2 seats</div><div class="tbl-num">T2</div><div class="tbl-cap">2 seats</div></div>
-<div class="tbl" id="t3" style="width:48px;height:48px;top:32px;left:130px" onclick="selectTable(3)"><div class="tbl-tip">Table 3 · 2 seats</div><div class="tbl-num">T3</div><div class="tbl-cap">2 seats</div></div>
-<div class="tbl booked" id="t4" style="width:48px;height:48px;top:32px;left:188px" onclick="selectTable(4)"><div class="tbl-tip">Table 4 · Booked</div><div class="tbl-num">T4</div><div class="tbl-cap">booked</div></div>
-<div class="tbl" id="t5" style="width:48px;height:48px;top:32px;left:246px" onclick="selectTable(5)"><div class="tbl-tip">Table 5 · 2 seats</div><div class="tbl-num">T5</div><div class="tbl-cap">2 seats</div></div>
+<div class="zlbl" style="top:5px;left:8px;">Main Dining</div>
+<div class="zlbl" style="top:5px;right:45px;">Private Room</div>
+<div class="zlbl" style="bottom:85px;left:8px;">Bar</div>
+<div class="zlbl" style="bottom:6px;left:8px;">Patio</div>
 
-<!-- 4-tops -->
-<div class="tbl" id="t6" style="width:60px;height:60px;top:112px;left:14px" onclick="selectTable(6)"><div class="tbl-tip">Table 6 · 4 seats</div><div class="tbl-num">T6</div><div class="tbl-cap">4 seats</div></div>
-<div class="tbl" id="t7" style="width:60px;height:60px;top:112px;left:88px" onclick="selectTable(7)"><div class="tbl-tip">Table 7 · 4 seats</div><div class="tbl-num">T7</div><div class="tbl-cap">4 seats</div></div>
-<div class="tbl booked" id="t8" style="width:60px;height:60px;top:112px;left:162px" onclick="selectTable(8)"><div class="tbl-tip">Table 8 · Booked</div><div class="tbl-num">T8</div><div class="tbl-cap">booked</div></div>
-<div class="tbl" id="t9" style="width:60px;height:60px;top:112px;left:236px" onclick="selectTable(9)"><div class="tbl-tip">Table 9 · 4 seats</div><div class="tbl-num">T9</div><div class="tbl-cap">4 seats</div></div>
+<!-- 2-tops T1–T5 -->
 
-<!-- 6-tops -->
-<div class="tbl" id="t10" style="width:72px;height:56px;top:208px;left:14px" onclick="selectTable(10)"><div class="tbl-tip">Table 10 · 6 seats</div><div class="tbl-num">T10</div><div class="tbl-cap">6 seats</div></div>
-<div class="tbl" id="t11" style="width:72px;height:56px;top:208px;left:100px" onclick="selectTable(11)"><div class="tbl-tip">Table 11 · 6 seats</div><div class="tbl-num">T11</div><div class="tbl-cap">6 seats</div></div>
+<div class="tbl" id="t1" style="width:48px;height:48px;top:32px;left:14px" onclick="selTable(1)"><div class="tbl-tip">Table 1 · 2 seats</div><div class="tbl-n">T1</div><div class="tbl-c">2 seats</div></div>
+<div class="tbl" id="t2" style="width:48px;height:48px;top:32px;left:72px" onclick="selTable(2)"><div class="tbl-tip">Table 2 · 2 seats</div><div class="tbl-n">T2</div><div class="tbl-c">2 seats</div></div>
+<div class="tbl" id="t3" style="width:48px;height:48px;top:32px;left:130px" onclick="selTable(3)"><div class="tbl-tip">Table 3 · 2 seats</div><div class="tbl-n">T3</div><div class="tbl-c">2 seats</div></div>
+<div class="tbl booked" id="t4" style="width:48px;height:48px;top:32px;left:188px" onclick="selTable(4)"><div class="tbl-tip">Table 4 · Booked</div><div class="tbl-n">T4</div><div class="tbl-c">booked</div></div>
+<div class="tbl" id="t5" style="width:48px;height:48px;top:32px;left:246px" onclick="selTable(5)"><div class="tbl-tip">Table 5 · 2 seats</div><div class="tbl-n">T5</div><div class="tbl-c">2 seats</div></div>
 
-<!-- Private room -->
-<div class="tbl" id="t12" style="width:90px;height:62px;top:32px;right:14px;border-style:dashed" onclick="selectTable(12)"><div class="tbl-tip">Private Room · 10 seats</div><div class="tbl-num">Private</div><div class="tbl-cap">10 seats</div></div>
+<!-- 4-tops T6–T9 -->
 
-<!-- Bar -->
-<div class="tbl" id="t13" style="width:124px;height:40px;bottom:72px;left:14px;border-radius:20px" onclick="selectTable(13)"><div class="tbl-tip">Bar · 8 seats</div><div class="tbl-num">Bar</div><div class="tbl-cap">8 seats</div></div>
+<div class="tbl" id="t6" style="width:60px;height:60px;top:112px;left:14px" onclick="selTable(6)"><div class="tbl-tip">Table 6 · 4 seats</div><div class="tbl-n">T6</div><div class="tbl-c">4 seats</div></div>
+<div class="tbl" id="t7" style="width:60px;height:60px;top:112px;left:88px" onclick="selTable(7)"><div class="tbl-tip">Table 7 · 4 seats</div><div class="tbl-n">T7</div><div class="tbl-c">4 seats</div></div>
+<div class="tbl booked" id="t8" style="width:60px;height:60px;top:112px;left:162px" onclick="selTable(8)"><div class="tbl-tip">Table 8 · Booked</div><div class="tbl-n">T8</div><div class="tbl-c">booked</div></div>
+<div class="tbl" id="t9" style="width:60px;height:60px;top:112px;left:236px" onclick="selTable(9)"><div class="tbl-tip">Table 9 · 4 seats</div><div class="tbl-n">T9</div><div class="tbl-c">4 seats</div></div>
 
-<!-- Patio -->
-<div class="tbl" id="t14" style="width:48px;height:48px;bottom:8px;left:14px;border-style:dotted" onclick="selectTable(14)"><div class="tbl-tip">Patio 1 · 4 seats</div><div class="tbl-num">P1</div><div class="tbl-cap">patio</div></div>
-<div class="tbl" id="t15" style="width:48px;height:48px;bottom:8px;left:72px;border-style:dotted" onclick="selectTable(15)"><div class="tbl-tip">Patio 2 · 4 seats</div><div class="tbl-num">P2</div><div class="tbl-cap">patio</div></div>
-<div class="tbl booked" id="t16" style="width:48px;height:48px;bottom:8px;left:130px;border-style:dotted" onclick="selectTable(16)"><div class="tbl-tip">Patio 3 · Booked</div><div class="tbl-num">P3</div><div class="tbl-cap">booked</div></div>
-<div class="tbl" id="t17" style="width:48px;height:48px;bottom:8px;left:188px;border-style:dotted" onclick="selectTable(17)"><div class="tbl-tip">Patio 4 · 4 seats</div><div class="tbl-num">P4</div><div class="tbl-cap">patio</div></div>
-</div>
-</div>
+<!-- 6-tops T10–T11 -->
 
-<!-- BOOKING PANEL -->
-<div class="res-panel-side">
-<button class="res-close" onclick="closeReservationDemo()">✕</button>
+<div class="tbl" id="t10" style="width:72px;height:56px;top:208px;left:14px" onclick="selTable(10)"><div class="tbl-tip">Table 10 · 6 seats</div><div class="tbl-n">T10</div><div class="tbl-c">6 seats</div></div>
+<div class="tbl" id="t11" style="width:72px;height:56px;top:208px;left:100px" onclick="selTable(11)"><div class="tbl-tip">Table 11 · 6 seats</div><div class="tbl-n">T11</div><div class="tbl-c">6 seats</div></div>
+
+<!-- Private room T12 -->
+
+<div class="tbl" id="t12" style="width:90px;height:62px;top:32px;right:14px;border-style:dashed" onclick="selTable(12)"><div class="tbl-tip">Private Room · 10 seats</div><div class="tbl-n">Private</div><div class="tbl-c">10 seats</div></div>
+
+<!-- Bar T13 -->
+
+<div class="tbl" id="t13" style="width:124px;height:40px;bottom:72px;left:14px;border-radius:20px" onclick="selTable(13)"><div class="tbl-tip">Bar · 8 seats</div><div class="tbl-n">Bar</div><div class="tbl-c">8 seats</div></div>
+
+<!-- Patio T14–T17 -->
+
+<div class="tbl" id="t14" style="width:48px;height:48px;bottom:8px;left:14px;border-style:dotted" onclick="selTable(14)"><div class="tbl-tip">Patio 1 · 4 seats</div><div class="tbl-n">P1</div><div class="tbl-c">patio</div></div>
+<div class="tbl" id="t15" style="width:48px;height:48px;bottom:8px;left:72px;border-style:dotted" onclick="selTable(15)"><div class="tbl-tip">Patio 2 · 4 seats</div><div class="tbl-n">P2</div><div class="tbl-c">patio</div></div>
+<div class="tbl booked" id="t16" style="width:48px;height:48px;bottom:8px;left:130px;border-style:dotted" onclick="selTable(16)"><div class="tbl-tip">Patio 3 · Booked</div><div class="tbl-n">P3</div><div class="tbl-c">booked</div></div>
+<div class="tbl" id="t17" style="width:48px;height:48px;bottom:8px;left:188px;border-style:dotted" onclick="selTable(17)"><div class="tbl-tip">Patio 4 · 4 seats</div><div class="tbl-n">P4</div><div class="tbl-c">patio</div></div>
+
+</div><!-- /floor -->
+</div><!-- /res-left -->
+
+<!-- RIGHT: Booking panel -->
+
+<div class="res-right">
+<button class="res-close" onclick="closeResModal()">✕</button>
+
+<!-- Default state -->
 
 <div id="resDefault">
 <div class="res-panel-title">Make a Reservation</div>
 <div class="res-panel-hint">Select an available table on the floor plan to begin.</div>
 <div style="text-align:center;padding:50px 0 16px;font-size:32px;">📍</div>
-<div style="text-align:center;font-size:11px;color:rgba(255,255,255,0.35);line-height:1.7;">Click any <span style="color:#22c55e">green table</span> to start booking.</div>
+<div style="text-align:center;font-size:11px;color:rgba(255,255,255,.35);line-height:1.7;">Click any <span style="color:#22c55e">green table</span> to start booking.</div>
 </div>
+
+<!-- Form state -->
 
 <div id="resForm" style="display:none;">
 <div class="res-panel-title">Reserve Table</div>
@@ -518,27 +646,27 @@ font-size: 11px; cursor: pointer; width: 100%; margin: 0; transition: 0.2s;
 <option>5 guests</option><option>6 guests</option><option>7+ guests</option>
 </select>
 <textarea id="resNotes" placeholder="Special requests..."></textarea>
-<button class="res-confirm-btn" onclick="confirmReservation()">Confirm Reservation →</button>
-<button class="res-back-btn" onclick="clearSelection()">← Different table</button>
+<button class="res-confirm" onclick="confirmRes()">Confirm Reservation →</button>
+<button class="res-back" onclick="clearRes()">← Different table</button>
 </div>
 </div>
+
+<!-- Success state -->
 
 <div class="res-success" id="resSuccess">
-<div class="res-success-ico">✓</div>
+<div class="res-sico">✓</div>
 <h3>Confirmed!</h3>
 <p>SMS sent automatically. Restaurant notified instantly.</p>
-<div class="res-details" id="resDetails"></div>
-<button class="res-reset-btn" onclick="resetReservationDemo()">Book Another Table →</button>
-<button class="res-cta-btn" onclick="scrollToSection('contact');closeReservationDemo()">Build This For My Business →</button>
-</div>
-</div>
-
-</div>
-```
-
+<div class="res-det" id="resDet"></div>
+<button class="res-reset" onclick="resetRes()">Book Another Table →</button>
+<button class="res-cta" onclick="scrollToSection('contact');closeResModal()">Build This For My Business →</button>
 </div>
 
-<!-- CHATBOT -->
+</div><!-- /res-right -->
+</div><!-- /res-wrap -->
+</div><!-- /res-modal -->
+
+<!-- CHATBOT (upgraded to real AI) -->
 
 <div id="chatbot">
 <div id="chat-header" onclick="toggleChat()">
@@ -547,7 +675,7 @@ font-size: 11px; cursor: pointer; width: 100%; margin: 0; transition: 0.2s;
 </div>
 <div id="chat-body">
 <div id="chat-messages">
-<div class="chat-msg-ai">Hi! I'm the AI assistant for TechAI Systems. How can I help automate your business?</div>
+<div class="cmsg-ai">Hi! I'm the AI assistant for TechAI-Systems. How can I help automate your business?</div>
 </div>
 <div class="chat-input-row">
 <input id="chat-input" placeholder="Ask something..." onkeydown="if(event.key==='Enter')sendChat()">
@@ -556,196 +684,195 @@ font-size: 11px; cursor: pointer; width: 100%; margin: 0; transition: 0.2s;
 </div>
 </div>
 
-<script>
-// CURSOR GLOW
-const glow = document.getElementById('cursorGlow');
-document.addEventListener('mousemove', e => {
-glow.style.left = e.clientX + 'px';
-glow.style.top = e.clientY + 'px';
-});
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
-// SCROLL
-function scrollToSection(id) {
-document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+/* ── ORIGINAL FUNCTIONS ── */
+
+function scrollToSection(id){
+document.getElementById(id).scrollIntoView({behavior:“smooth”});
 }
 
-// PARTICLES
-particlesJS("particles-js", {
-particles: {
-number: { value: 80 }, size: { value: 3 }, move: { speed: 1 },
-color: { value: '#22c55e' }, opacity: { value: 0.15 },
-line_linked: { enable: true, color: '#22c55e', opacity: 0.06 }
+function closeModal(){
+document.getElementById(“modal”).style.display=“none”;
+}
+
+function openDemo(type){
+var demos={
+email:{
+title:“AI Email Automation”,
+body:’<span class="msec">Problem</span><p>Businesses lose 10–20 hours a week manually reading and replying to repetitive emails.</p><span class="msec">How It Works</span><ul><li>Email arrives in your inbox</li><li>AI reads and classifies the intent</li><li>AI drafts and sends the appropriate reply</li><li>Conversation is logged to your CRM automatically</li><li>Complex cases are flagged for human review</li></ul><span class="msec">Results</span><ul><li>85% of emails handled automatically</li><li>Response time reduced to under 5 minutes</li><li>12–15 hours saved per week</li></ul><span class="msec">Investment</span><p><span class="mprice">$500 – $1,500 setup</span></p>’
 },
-interactivity: {
-events: { onhover: { enable: true, mode: 'grab' } },
-modes: { grab: { distance: 140, line_linked: { opacity: 0.15 } } }
+lead:{
+title:“AI Lead Qualification”,
+body:’<span class="msec">Problem</span><p>Sales teams waste 60%+ of their time on leads that will never convert.</p><span class="msec">How It Works</span><ul><li>New lead enters your CRM or form</li><li>AI analyses company size, industry, behaviour signals</li><li>Lead receives a quality score (Hot / Warm / Cold)</li><li>Hot leads are routed directly to your sales team instantly</li><li>Cold leads enter a nurture sequence automatically</li></ul><span class="msec">Results</span><ul><li>Sales team focuses only on high-value prospects</li><li>Conversion rates increase 20–40%</li><li>Zero leads fall through the cracks</li></ul><span class="msec">Investment</span><p><span class="mprice">$700 – $2,000 setup</span></p>’
+},
+report:{
+title:“AI Business Reports”,
+body:’<span class="msec">Problem</span><p>Managers spend 4–6 hours a week pulling data together and writing reports manually.</p><span class="msec">How It Works</span><ul><li>Data collected automatically from your tools</li><li>AI identifies trends, anomalies, and key changes</li><li>A formatted report is generated with plain-English insights</li><li>Report emailed to your team every Monday morning</li></ul><span class="msec">Results</span><ul><li>Zero manual reporting work</li><li>Faster decisions based on real-time data</li><li>4–6 hours saved per week, per manager</li></ul><span class="msec">Investment</span><p><span class="mprice">$400 – $1,200 setup</span></p>’
 }
-});
-
-// ORIGINAL DEMO MODAL
-function demo(type) {
-let title = '', content = '';
-if (type === 'email') {
-title = 'AI Email Automation';
-content = `<h3>Problem</h3><p>Businesses spend hours replying to repetitive emails.</p>
-<h3>Workflow</h3><ul><li>Email received</li><li>AI analyzes intent</li><li>AI generates response</li><li>Reply automatically sent</li><li>Conversation logged to CRM</li></ul>
-<h3>Estimated Time Saved</h3><p>10–20 hours weekly</p>
-<h3>Typical Pricing</h3><p><span class="modal-price">$500 – $1,500 setup</span></p>
-<h3>Case Study</h3><ul><li>85% of emails automated</li><li>12 hours saved weekly</li><li>Response time under 10 minutes</li></ul>`;
-}
-if (type === 'lead') {
-title = 'AI Lead Qualification';
-content = `<h3>Problem</h3><p>Sales teams waste time reviewing leads manually.</p>
-<h3>Workflow</h3><ul><li>Lead enters CRM</li><li>AI analyzes company data</li><li>AI scores lead quality</li><li>Best leads sent to sales team</li></ul>
-<h3>Typical Pricing</h3><p><span class="modal-price">$700 – $2,000</span></p>`;
-}
-if (type === 'report') {
-title = 'AI Automated Business Reports';
-content = `<h3>Problem</h3><p>Managers spend hours building reports.</p>
-<h3>Workflow</h3><ul><li>Data collected automatically</li><li>AI analyzes trends</li><li>AI generates insights</li><li>Reports delivered automatically</li></ul>
-<h3>Typical Pricing</h3><p><span class="modal-price">$400 – $1,200</span></p>`;
-}
-document.getElementById('modalTitle').innerHTML = title;
-document.getElementById('modalSteps').innerHTML = content;
-document.getElementById('demoModal').style.display = 'flex';
-}
-function closeModal() { document.getElementById('demoModal').style.display = 'none'; }
-
-// AI SUGGESTER
-async function askAI() {
-const input = document.getElementById('aiInput').value.trim();
-if (!input) return;
-const output = document.getElementById('aiOutput');
-output.style.display = 'block';
-output.innerHTML = '⏳ Analysing automation opportunities...';
-try {
-const res = await fetch('/.netlify/functions/ai', {
-method: 'POST', headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ mode: 'suggest', messages: [{ role: 'user', content: input }] })
-});
-const data = await res.json();
-output.textContent = data.reply || 'Something went wrong. Please try again.';
-} catch (e) {
-output.textContent = 'Error — make sure the site is live on Netlify.';
-}
-}
-document.getElementById('aiInput').addEventListener('keydown', e => { if (e.key === 'Enter') askAI(); });
-
-// CHATBOT
-let chatOpen = false, chatHistory = [];
-function toggleChat() {
-chatOpen = !chatOpen;
-document.getElementById('chat-body').style.display = chatOpen ? 'block' : 'none';
-document.getElementById('chatArrow').textContent = chatOpen ? '▼' : '▲';
-}
-function addMsg(text, type) {
-const msgs = document.getElementById('chat-messages');
-const div = document.createElement('div');
-div.className = type === 'user' ? 'chat-msg-user' : 'chat-msg-ai';
-div.textContent = text;
-msgs.appendChild(div);
-msgs.scrollTop = msgs.scrollHeight;
-}
-function showTyping() {
-const msgs = document.getElementById('chat-messages');
-const div = document.createElement('div');
-div.className = 'chat-typing'; div.id = 'typingDots';
-div.innerHTML = '<div class="chat-dot"></div><div class="chat-dot"></div><div class="chat-dot"></div>';
-msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
-}
-function removeTyping() { const el = document.getElementById('typingDots'); if (el) el.remove(); }
-async function sendChat() {
-const input = document.getElementById('chat-input');
-const text = input.value.trim();
-if (!text) return;
-addMsg(text, 'user');
-chatHistory.push({ role: 'user', content: text });
-input.value = ''; showTyping();
-try {
-const res = await fetch('/.netlify/functions/ai', {
-method: 'POST', headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ mode: 'chat', messages: chatHistory })
-});
-const data = await res.json();
-removeTyping();
-const reply = data.reply || "Sorry, couldn't process that.";
-addMsg(reply, 'ai');
-chatHistory.push({ role: 'assistant', content: reply });
-} catch (e) { removeTyping(); addMsg('Connection error — site must be live on Netlify.', 'ai'); }
-}
-
-// RESERVATION DEMO
-const tInfo = {
-1:{l:'Table 1',s:2}, 2:{l:'Table 2',s:2}, 3:{l:'Table 3',s:2},
-4:{l:'Table 4',s:2}, 5:{l:'Table 5',s:2}, 6:{l:'Table 6',s:4},
-7:{l:'Table 7',s:4}, 8:{l:'Table 8',s:4}, 9:{l:'Table 9',s:4},
-10:{l:'Table 10',s:6}, 11:{l:'Table 11',s:6}, 12:{l:'Private Room',s:10},
-13:{l:'Bar Area',s:8}, 14:{l:'Patio 1',s:4}, 15:{l:'Patio 2',s:4},
-16:{l:'Patio 3',s:4}, 17:{l:'Patio 4',s:4}
 };
-const defBooked = [4,8,16];
-let curTable = null;
+document.getElementById(“modal-title”).innerHTML=demos[type].title;
+document.getElementById(“modal-body”).innerHTML=demos[type].body;
+document.getElementById(“modal”).style.display=“flex”;
+}
 
-function openReservationDemo() {
-document.getElementById('resDate').value = new Date().toISOString().split('T')[0];
-document.getElementById('reservationModal').style.display = 'flex';
-}
-function closeReservationDemo() { document.getElementById('reservationModal').style.display = 'none'; }
+/* ── AI SUGGESTER (upgraded to Netlify function) ── */
 
-function selectTable(id) {
-const el = document.getElementById('t'+id);
-if (el.classList.contains('booked')) return;
-if (curTable) document.getElementById('t'+curTable).classList.remove('selected');
-curTable = id; el.classList.add('selected');
-document.getElementById('resBadge').textContent = `${tInfo[id].l} · ${tInfo[id].s} seats · Available`;
-document.getElementById('resDefault').style.display = 'none';
-document.getElementById('resForm').style.display = 'block';
-document.getElementById('resSuccess').style.display = 'none';
+async function askAI(){
+let input=document.getElementById(“aiInput”).value;
+if(!input) return;
+document.getElementById(“aiOutput”).innerText=“Thinking…”;
+try{
+let res=await fetch(”/.netlify/functions/ai”,{
+method:“POST”,
+headers:{“Content-Type”:“application/json”},
+body:JSON.stringify({mode:“suggest”,messages:[{role:“user”,content:input}]})
+});
+let data=await res.json();
+document.getElementById(“aiOutput”).innerText=data.reply||“Something went wrong.”;
+}catch(e){
+document.getElementById(“aiOutput”).innerText=“Error — make sure the site is live on Netlify.”;
 }
-function clearSelection() {
-if (curTable) { document.getElementById('t'+curTable).classList.remove('selected'); curTable = null; }
-document.getElementById('resDefault').style.display = 'block';
-document.getElementById('resForm').style.display = 'none';
 }
-function confirmReservation() {
-const name = document.getElementById('resName').value.trim();
-if (!name) { document.getElementById('resName').focus(); return; }
-const phone = document.getElementById('resPhone').value.trim();
-const date = document.getElementById('resDate').value;
-const time = document.getElementById('resTime').value;
-const party = document.getElementById('resParty').value || '2 guests';
-const el = document.getElementById('t'+curTable);
-el.classList.remove('selected'); el.classList.add('booked');
-el.querySelector('.tbl-cap').textContent = 'booked';
-const td = tInfo[curTable];
-const [h,m] = time.split(':'); const hr = parseInt(h);
-const tStr = `${hr>12?hr-12:hr}:${m}${hr>=12?'pm':'am'}`;
-const dStr = date ? new Date(date+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}) : 'Tonight';
-document.getElementById('smsText').textContent =
-`New reservation at Demo Vista — ${td.l}, ${party}, ${dStr} at ${tStr}. Booked by: ${name}${phone?' · '+phone:''}`;
-const popup = document.getElementById('smsPopup');
-popup.classList.add('show');
-setTimeout(() => popup.classList.remove('show'), 5000);
-document.getElementById('resForm').style.display = 'none';
-document.getElementById('resSuccess').style.display = 'flex';
-document.getElementById('resDetails').textContent =
-`Table: ${td.l}\nGuests: ${party}\nDate: ${dStr}\nTime: ${tStr}\nName: ${name}${phone?'\nPhone: '+phone:''}\n\n✓ SMS sent automatically\n✓ CRM updated\n✓ Reminder scheduled`;
-curTable = null;
-}
-function resetReservationDemo() {
-for (let i=1;i<=17;i++) {
-const el = document.getElementById('t'+i);
-if (!el) continue;
-el.classList.remove('booked','selected');
-if (defBooked.includes(i)) { el.classList.add('booked'); el.querySelector('.tbl-cap').textContent='booked'; }
-else { el.querySelector('.tbl-cap').textContent = tInfo[i].s+' seats'; }
-}
-['resName','resPhone','resEmail','resNotes'].forEach(id => document.getElementById(id).value='');
-document.getElementById('resSuccess').style.display = 'none';
-document.getElementById('resDefault').style.display = 'block';
-curTable = null;
-}
-</script>
 
-</body>
-</html>
+/* ── CHATBOT (upgraded to real AI) ── */
+
+let chatOpen=false, chatHistory=[];
+
+function toggleChat(){
+chatOpen=!chatOpen;
+document.getElementById(“chat-body”).style.display=chatOpen?“block”:“none”;
+document.getElementById(“chatArrow”).textContent=chatOpen?“▼”:“▲”;
+}
+
+function addCMsg(text,type){
+let msgs=document.getElementById(“chat-messages”);
+let d=document.createElement(“div”);
+d.className=type===“user”?“cmsg-user”:“cmsg-ai”;
+d.textContent=text;
+msgs.appendChild(d);
+msgs.scrollTop=msgs.scrollHeight;
+}
+
+function showTyping(){
+let msgs=document.getElementById(“chat-messages”);
+let d=document.createElement(“div”);
+d.className=“cmsg-typing”;d.id=“typingDots”;
+d.innerHTML=’<div class="cdot"></div><div class="cdot"></div><div class="cdot"></div>’;
+msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+
+function removeTyping(){
+let el=document.getElementById(“typingDots”);
+if(el)el.remove();
+}
+
+async function sendChat(){
+let input=document.getElementById(“chat-input”);
+let text=input.value.trim();
+if(!text)return;
+addCMsg(text,“user”);
+chatHistory.push({role:“user”,content:text});
+input.value=””;showTyping();
+try{
+let res=await fetch(”/.netlify/functions/ai”,{
+method:“POST”,
+headers:{“Content-Type”:“application/json”},
+body:JSON.stringify({mode:“chat”,messages:chatHistory})
+});
+let data=await res.json();
+removeTyping();
+let reply=data.reply||“Sorry, couldn’t process that.”;
+addCMsg(reply,“ai”);
+chatHistory.push({role:“assistant”,content:reply});
+}catch(e){
+removeTyping();
+addCMsg(“Connection error — site must be live on Netlify.”,“ai”);
+}
+}
+
+/* ── PARTICLES (unchanged) ── */
+
+particlesJS(“particles-js”,{
+particles:{
+number:{value:80},
+size:{value:3},
+move:{speed:1},
+line_linked:{enable:true}
+}
+});
+
+/* ── RESERVATION DEMO ── */
+
+const tInfo={
+1:{l:“Table 1”,s:2},2:{l:“Table 2”,s:2},3:{l:“Table 3”,s:2},
+4:{l:“Table 4”,s:2},5:{l:“Table 5”,s:2},6:{l:“Table 6”,s:4},
+7:{l:“Table 7”,s:4},8:{l:“Table 8”,s:4},9:{l:“Table 9”,s:4},
+10:{l:“Table 10”,s:6},11:{l:“Table 11”,s:6},12:{l:“Private Room”,s:10},
+13:{l:“Bar Area”,s:8},14:{l:“Patio 1”,s:4},15:{l:“Patio 2”,s:4},
+16:{l:“Patio 3”,s:4},17:{l:“Patio 4”,s:4}
+};
+const defBooked=[4,8,16];
+let curTable=null;
+
+function openResModal(){
+document.getElementById(“resDate”).value=new Date().toISOString().split(“T”)[0];
+document.getElementById(“res-modal”).style.display=“flex”;
+}
+
+function closeResModal(){
+document.getElementById(“res-modal”).style.display=“none”;
+}
+
+function selTable(id){
+let el=document.getElementById(“t”+id);
+if(el.classList.contains(“booked”))return;
+if(curTable)document.getElementById(“t”+curTable).classList.remove(“selected”);
+curTable=id;el.classList.add(“selected”);
+document.getElementById(“resBadge”).textContent=tInfo[id].l+” · “+tInfo[id].s+” seats · Available”;
+document.getElementById(“resDefault”).style.display=“none”;
+document.getElementById(“resForm”).style.display=“block”;
+document.getElementById(“resSuccess”).style.display=“none”;
+}
+
+function clearRes(){
+if(curTable){document.getElementById(“t”+curTable).classList.remove(“selected”);curTable=null;}
+document.getElementById(“resDefault”).style.display=“block”;
+document.getElementById(“resForm”).style.display=“none”;
+}
+
+function confirmRes(){
+let name=document.getElementById(“resName”).value.trim();
+if(!name){document.getElementById(“resName”).focus();return;}
+let phone=document.getElementById(“resPhone”).value.trim();
+let date=document.getElementById(“resDate”).value;
+let time=document.getElementById(“resTime”).value;
+let party=document.getElementById(“resParty”).value||“2 guests”;
+let el=document.getElementById(“t”+curTable);
+el.classList.remove(“selected”);el.classList.add(“booked”);
+el.querySelector(”.tbl-c”).textContent=“booked”;
+let td=tInfo[curTable];
+let parts=time.split(”:”);let hr=parseInt(parts[0]);
+let tStr=(hr>12?hr-12:hr)+”:”+parts[1]+(hr>=12?“pm”:“am”);
+let dStr=date?new Date(date+“T12:00:00”).toLocaleDateString(“en-GB”,{weekday:“short”,day:“numeric”,month:“short”}):“Tonight”;
+document.getElementById(“smsText”).textContent=
+“New reservation at Demo Vista — “+td.l+”, “+party+”, “+dStr+” at “+tStr+”. Booked by: “+name+(phone?” · “+phone:””);
+let pop=document.getElementById(“smsPop”);
+pop.classList.add(“show”);
+setTimeout(function(){pop.classList.remove(“show”);},5000);
+document.getElementById(“resForm”).style.display=“none”;
+document.getElementById(“resSuccess”).style.display=“flex”;
+document.getElementById(“resDet”).textContent=
+“Table: “+td.l+”\nGuests: “+party+”\nDate: “+dStr+”\nTime: “+tStr+”\nName: “+name+(phone?”\nPhone: “+phone:””)+”\n\n✓ SMS sent automatically\n✓ CRM updated\n✓ Reminder scheduled”;
+curTable=null;
+}
+
+function resetRes(){
+for(let i=1;i<=17;i++){
+let el=document.getElementById(“t”+i);
+if(!el)continue;
+el.classList.remove(“booked”,“selected”);
+if(defBooked.includes(i)){el.classList.add(“booked”);el.querySelector(”.tbl-c”).textContent=“booked”;}
+else{el.querySelector(”.tbl-c”).textContent=tInfo[i].s+” seats”;}
+}
+[“resName”,“resPhone”,“resEmail”,“resNotes”]
