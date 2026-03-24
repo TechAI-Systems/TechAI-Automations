@@ -875,4 +875,13 @@ el.classList.remove(“booked”,“selected”);
 if(defBooked.includes(i)){el.classList.add(“booked”);el.querySelector(”.tbl-c”).textContent=“booked”;}
 else{el.querySelector(”.tbl-c”).textContent=tInfo[i].s+” seats”;}
 }
-[“resName”,“resPhone”,“resEmail”,“resNotes”]
+[“resName”,“resPhone”,“resEmail”,“resNotes”].forEach(function(id){document.getElementById(id).value=””;});
+document.getElementById(“resSuccess”).style.display=“none”;
+document.getElementById(“resDefault”).style.display=“block”;
+curTable=null;
+}
+
+</script>
+
+</body>
+</html>
