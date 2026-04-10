@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 
@@ -421,8 +420,7 @@ box-sizing:border-box;transition:border-color .2s;
 <button class="secondary" onclick="scrollToSection('contact')">Free AI Audit</button>
 </header>
 
-<!-- SERVICES — original 4 + 2 new -->
-
+<!-- SERVICES - original 4 + 2 new -->
 <section id="services">
 <h2>AI Services</h2>
 <div class="grid">
@@ -448,14 +446,12 @@ box-sizing:border-box;transition:border-color .2s;
 </div>
 
 <!-- NEW: Reputation Management -->
-
 <div class="card">
 <h3>⭐ AI Reputation Management</h3>
-<p>Auto-respond to Google & Yelp reviews, get instant alerts on negative feedback, and prompt happy customers to leave reviews — all on autopilot.</p>
+<p>Auto-respond to Google & Yelp reviews, get instant alerts on negative feedback, and prompt happy customers to leave reviews - all on autopilot.</p>
 </div>
 
 <!-- NEW: Appointment Booking -->
-
 <div class="card">
 <h3>📅 AI Appointment Booking</h3>
 <p>A 24/7 AI booking assistant that handles scheduling, sends reminders, and cuts no-shows without any staff involvement.</p>
@@ -464,8 +460,7 @@ box-sizing:border-box;transition:border-color .2s;
 </div>
 </section>
 
-<!-- DEMOS — original 3 + reservation demo card -->
-
+<!-- DEMOS - original 3 + reservation demo card -->
 <section id="demos">
 <h2>Example Automations</h2>
 <div class="grid">
@@ -486,10 +481,9 @@ box-sizing:border-box;transition:border-color .2s;
 </div>
 
 <!-- NEW: Reservation demo card -->
-
 <div class="card" style="border:1px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.04);">
 <h3>📅 AI Reservation System</h3>
-<p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;">Live floor plan, real table booking, and automated SMS — see the full system working.</p>
+<p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;">Live floor plan, real table booking, and automated SMS - see the full system working.</p>
 <button onclick="openResModal()">See Live Demo →</button>
 </div>
 
@@ -497,7 +491,6 @@ box-sizing:border-box;transition:border-color .2s;
 </section>
 
 <!-- AI SUGGESTER (unchanged) -->
-
 <section id="ai">
 <h2>AI Automation Demo</h2>
 <p>Describe a business task and AI will suggest an automation.</p>
@@ -508,7 +501,6 @@ box-sizing:border-box;transition:border-color .2s;
 </section>
 
 <!-- CONTACT (unchanged) -->
-
 <section id="contact">
 <h2>Contact</h2>
 <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
@@ -528,7 +520,6 @@ box-sizing:border-box;transition:border-color .2s;
 </footer>
 
 <!-- DEMO MODAL (upgraded) -->
-
 <div id="modal" onclick="if(event.target===this)closeModal()">
 <div id="modal-content">
 <button class="mclose" onclick="closeModal()">&#x2715;</button>
@@ -539,12 +530,10 @@ box-sizing:border-box;transition:border-color .2s;
 </div>
 
 <!-- RESERVATION MODAL (new) -->
-
 <div id="res-modal" onclick="if(event.target===this)closeResModal()">
 <div class="res-wrap">
 
 <!-- LEFT: Floor plan -->
-
 <div class="res-left">
 <div class="res-title">Demo Vista Restaurant</div>
 <div class="res-sub">// Interactive Floor Plan · Click a table to reserve</div>
@@ -557,7 +546,6 @@ box-sizing:border-box;transition:border-color .2s;
 <div class="floor" id="floorPlan">
 
 <!-- SMS popup -->
-
 <div class="sms-pop" id="smsPop">
 <div class="sms-hdr">
 <div class="sms-ico">💬</div>
@@ -568,42 +556,35 @@ box-sizing:border-box;transition:border-color .2s;
 </div>
 
 <!-- Zone labels -->
-
 <div class="zlbl" style="top:5px;left:8px;">Main Dining</div>
 <div class="zlbl" style="top:5px;right:45px;">Private Room</div>
 <div class="zlbl" style="bottom:85px;left:8px;">Bar</div>
 <div class="zlbl" style="bottom:6px;left:8px;">Patio</div>
 
-<!-- 2-tops T1–T5 -->
-
+<!-- 2-tops T1-T5 -->
 <div class="tbl" id="t1" style="width:48px;height:48px;top:32px;left:14px" onclick="selTable(1)"><div class="tbl-tip">Table 1 · 2 seats</div><div class="tbl-n">T1</div><div class="tbl-c">2 seats</div></div>
 <div class="tbl" id="t2" style="width:48px;height:48px;top:32px;left:72px" onclick="selTable(2)"><div class="tbl-tip">Table 2 · 2 seats</div><div class="tbl-n">T2</div><div class="tbl-c">2 seats</div></div>
 <div class="tbl" id="t3" style="width:48px;height:48px;top:32px;left:130px" onclick="selTable(3)"><div class="tbl-tip">Table 3 · 2 seats</div><div class="tbl-n">T3</div><div class="tbl-c">2 seats</div></div>
 <div class="tbl booked" id="t4" style="width:48px;height:48px;top:32px;left:188px" onclick="selTable(4)"><div class="tbl-tip">Table 4 · Booked</div><div class="tbl-n">T4</div><div class="tbl-c">booked</div></div>
 <div class="tbl" id="t5" style="width:48px;height:48px;top:32px;left:246px" onclick="selTable(5)"><div class="tbl-tip">Table 5 · 2 seats</div><div class="tbl-n">T5</div><div class="tbl-c">2 seats</div></div>
 
-<!-- 4-tops T6–T9 -->
-
+<!-- 4-tops T6-T9 -->
 <div class="tbl" id="t6" style="width:60px;height:60px;top:112px;left:14px" onclick="selTable(6)"><div class="tbl-tip">Table 6 · 4 seats</div><div class="tbl-n">T6</div><div class="tbl-c">4 seats</div></div>
 <div class="tbl" id="t7" style="width:60px;height:60px;top:112px;left:88px" onclick="selTable(7)"><div class="tbl-tip">Table 7 · 4 seats</div><div class="tbl-n">T7</div><div class="tbl-c">4 seats</div></div>
 <div class="tbl booked" id="t8" style="width:60px;height:60px;top:112px;left:162px" onclick="selTable(8)"><div class="tbl-tip">Table 8 · Booked</div><div class="tbl-n">T8</div><div class="tbl-c">booked</div></div>
 <div class="tbl" id="t9" style="width:60px;height:60px;top:112px;left:236px" onclick="selTable(9)"><div class="tbl-tip">Table 9 · 4 seats</div><div class="tbl-n">T9</div><div class="tbl-c">4 seats</div></div>
 
-<!-- 6-tops T10–T11 -->
-
+<!-- 6-tops T10-T11 -->
 <div class="tbl" id="t10" style="width:72px;height:56px;top:208px;left:14px" onclick="selTable(10)"><div class="tbl-tip">Table 10 · 6 seats</div><div class="tbl-n">T10</div><div class="tbl-c">6 seats</div></div>
 <div class="tbl" id="t11" style="width:72px;height:56px;top:208px;left:100px" onclick="selTable(11)"><div class="tbl-tip">Table 11 · 6 seats</div><div class="tbl-n">T11</div><div class="tbl-c">6 seats</div></div>
 
 <!-- Private room T12 -->
-
 <div class="tbl" id="t12" style="width:90px;height:62px;top:32px;right:14px;border-style:dashed" onclick="selTable(12)"><div class="tbl-tip">Private Room · 10 seats</div><div class="tbl-n">Private</div><div class="tbl-c">10 seats</div></div>
 
 <!-- Bar T13 -->
-
 <div class="tbl" id="t13" style="width:124px;height:40px;bottom:72px;left:14px;border-radius:20px" onclick="selTable(13)"><div class="tbl-tip">Bar · 8 seats</div><div class="tbl-n">Bar</div><div class="tbl-c">8 seats</div></div>
 
-<!-- Patio T14–T17 -->
-
+<!-- Patio T14-T17 -->
 <div class="tbl" id="t14" style="width:48px;height:48px;bottom:8px;left:14px;border-style:dotted" onclick="selTable(14)"><div class="tbl-tip">Patio 1 · 4 seats</div><div class="tbl-n">P1</div><div class="tbl-c">patio</div></div>
 <div class="tbl" id="t15" style="width:48px;height:48px;bottom:8px;left:72px;border-style:dotted" onclick="selTable(15)"><div class="tbl-tip">Patio 2 · 4 seats</div><div class="tbl-n">P2</div><div class="tbl-c">patio</div></div>
 <div class="tbl booked" id="t16" style="width:48px;height:48px;bottom:8px;left:130px;border-style:dotted" onclick="selTable(16)"><div class="tbl-tip">Patio 3 · Booked</div><div class="tbl-n">P3</div><div class="tbl-c">booked</div></div>
@@ -613,12 +594,10 @@ box-sizing:border-box;transition:border-color .2s;
 </div><!-- /res-left -->
 
 <!-- RIGHT: Booking panel -->
-
 <div class="res-right">
 <button class="res-close" onclick="closeResModal()">✕</button>
 
 <!-- Default state -->
-
 <div id="resDefault">
 <div class="res-panel-title">Make a Reservation</div>
 <div class="res-panel-hint">Select an available table on the floor plan to begin.</div>
@@ -627,7 +606,6 @@ box-sizing:border-box;transition:border-color .2s;
 </div>
 
 <!-- Form state -->
-
 <div id="resForm" style="display:none;">
 <div class="res-panel-title">Reserve Table</div>
 <div class="res-badge" id="resBadge">Table 1 · 2 seats</div>
@@ -652,7 +630,6 @@ box-sizing:border-box;transition:border-color .2s;
 </div>
 
 <!-- Success state -->
-
 <div class="res-success" id="resSuccess">
 <div class="res-sico">✓</div>
 <h3>Confirmed!</h3>
@@ -667,7 +644,6 @@ box-sizing:border-box;transition:border-color .2s;
 </div><!-- /res-modal -->
 
 <!-- CHATBOT (upgraded to real AI) -->
-
 <div id="chatbot">
 <div id="chat-header" onclick="toggleChat()">
 <span>🤖 AI Assistant</span>
@@ -689,49 +665,49 @@ box-sizing:border-box;transition:border-color .2s;
 /* ── ORIGINAL FUNCTIONS ── */
 
 function scrollToSection(id){
-document.getElementById(id).scrollIntoView({behavior:“smooth”});
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
 function closeModal(){
-document.getElementById(“modal”).style.display=“none”;
+document.getElementById("modal").style.display="none";
 }
 
 function openDemo(type){
 var demos={
 email:{
-title:“AI Email Automation”,
-body:’<span class="msec">Problem</span><p>Businesses lose 10–20 hours a week manually reading and replying to repetitive emails.</p><span class="msec">How It Works</span><ul><li>Email arrives in your inbox</li><li>AI reads and classifies the intent</li><li>AI drafts and sends the appropriate reply</li><li>Conversation is logged to your CRM automatically</li><li>Complex cases are flagged for human review</li></ul><span class="msec">Results</span><ul><li>85% of emails handled automatically</li><li>Response time reduced to under 5 minutes</li><li>12–15 hours saved per week</li></ul><span class="msec">Investment</span><p><span class="mprice">$500 – $1,500 setup</span></p>’
+title:"AI Email Automation",
+body:'<span class="msec">Problem</span><p>Businesses lose 10-20 hours a week manually reading and replying to repetitive emails.</p><span class="msec">How It Works</span><ul><li>Email arrives in your inbox</li><li>AI reads and classifies the intent</li><li>AI drafts and sends the appropriate reply</li><li>Conversation is logged to your CRM automatically</li><li>Complex cases are flagged for human review</li></ul><span class="msec">Results</span><ul><li>85% of emails handled automatically</li><li>Response time reduced to under 5 minutes</li><li>12-15 hours saved per week</li></ul><span class="msec">Investment</span><p><span class="mprice">$500 - $1,500 setup</span></p>'
 },
 lead:{
-title:“AI Lead Qualification”,
-body:’<span class="msec">Problem</span><p>Sales teams waste 60%+ of their time on leads that will never convert.</p><span class="msec">How It Works</span><ul><li>New lead enters your CRM or form</li><li>AI analyses company size, industry, behaviour signals</li><li>Lead receives a quality score (Hot / Warm / Cold)</li><li>Hot leads are routed directly to your sales team instantly</li><li>Cold leads enter a nurture sequence automatically</li></ul><span class="msec">Results</span><ul><li>Sales team focuses only on high-value prospects</li><li>Conversion rates increase 20–40%</li><li>Zero leads fall through the cracks</li></ul><span class="msec">Investment</span><p><span class="mprice">$700 – $2,000 setup</span></p>’
+title:"AI Lead Qualification",
+body:'<span class="msec">Problem</span><p>Sales teams waste 60%+ of their time on leads that will never convert.</p><span class="msec">How It Works</span><ul><li>New lead enters your CRM or form</li><li>AI analyses company size, industry, behaviour signals</li><li>Lead receives a quality score (Hot / Warm / Cold)</li><li>Hot leads are routed directly to your sales team instantly</li><li>Cold leads enter a nurture sequence automatically</li></ul><span class="msec">Results</span><ul><li>Sales team focuses only on high-value prospects</li><li>Conversion rates increase 20-40%</li><li>Zero leads fall through the cracks</li></ul><span class="msec">Investment</span><p><span class="mprice">$700 - $2,000 setup</span></p>'
 },
 report:{
-title:“AI Business Reports”,
-body:’<span class="msec">Problem</span><p>Managers spend 4–6 hours a week pulling data together and writing reports manually.</p><span class="msec">How It Works</span><ul><li>Data collected automatically from your tools</li><li>AI identifies trends, anomalies, and key changes</li><li>A formatted report is generated with plain-English insights</li><li>Report emailed to your team every Monday morning</li></ul><span class="msec">Results</span><ul><li>Zero manual reporting work</li><li>Faster decisions based on real-time data</li><li>4–6 hours saved per week, per manager</li></ul><span class="msec">Investment</span><p><span class="mprice">$400 – $1,200 setup</span></p>’
+title:"AI Business Reports",
+body:'<span class="msec">Problem</span><p>Managers spend 4-6 hours a week pulling data together and writing reports manually.</p><span class="msec">How It Works</span><ul><li>Data collected automatically from your tools</li><li>AI identifies trends, anomalies, and key changes</li><li>A formatted report is generated with plain-English insights</li><li>Report emailed to your team every Monday morning</li></ul><span class="msec">Results</span><ul><li>Zero manual reporting work</li><li>Faster decisions based on real-time data</li><li>4-6 hours saved per week, per manager</li></ul><span class="msec">Investment</span><p><span class="mprice">$400 - $1,200 setup</span></p>'
 }
 };
-document.getElementById(“modal-title”).innerHTML=demos[type].title;
-document.getElementById(“modal-body”).innerHTML=demos[type].body;
-document.getElementById(“modal”).style.display=“flex”;
+document.getElementById("modal-title").innerHTML=demos[type].title;
+document.getElementById("modal-body").innerHTML=demos[type].body;
+document.getElementById("modal").style.display="flex";
 }
 
 /* ── AI SUGGESTER (upgraded to Netlify function) ── */
 
 async function askAI(){
-let input=document.getElementById(“aiInput”).value;
+let input=document.getElementById("aiInput").value;
 if(!input) return;
-document.getElementById(“aiOutput”).innerText=“Thinking…”;
+document.getElementById("aiOutput").innerText="Thinking...";
 try{
-let res=await fetch(”/.netlify/functions/ai”,{
-method:“POST”,
-headers:{“Content-Type”:“application/json”},
-body:JSON.stringify({mode:“suggest”,messages:[{role:“user”,content:input}]})
+let res=await fetch("/.netlify/functions/ai",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({mode:"suggest",messages:[{role:"user",content:input}]})
 });
 let data=await res.json();
-document.getElementById(“aiOutput”).innerText=data.reply||“Something went wrong.”;
+document.getElementById("aiOutput").innerText=data.reply||"Something went wrong.";
 }catch(e){
-document.getElementById(“aiOutput”).innerText=“Error — make sure the site is live on Netlify.”;
+document.getElementById("aiOutput").innerText="Error - make sure the site is live on Netlify.";
 }
 }
 
@@ -741,59 +717,59 @@ let chatOpen=false, chatHistory=[];
 
 function toggleChat(){
 chatOpen=!chatOpen;
-document.getElementById(“chat-body”).style.display=chatOpen?“block”:“none”;
-document.getElementById(“chatArrow”).textContent=chatOpen?“▼”:“▲”;
+document.getElementById("chat-body").style.display=chatOpen?"block":"none";
+document.getElementById("chatArrow").textContent=chatOpen?"▼":"▲";
 }
 
 function addCMsg(text,type){
-let msgs=document.getElementById(“chat-messages”);
-let d=document.createElement(“div”);
-d.className=type===“user”?“cmsg-user”:“cmsg-ai”;
+let msgs=document.getElementById("chat-messages");
+let d=document.createElement("div");
+d.className=type==="user"?"cmsg-user":"cmsg-ai";
 d.textContent=text;
 msgs.appendChild(d);
 msgs.scrollTop=msgs.scrollHeight;
 }
 
 function showTyping(){
-let msgs=document.getElementById(“chat-messages”);
-let d=document.createElement(“div”);
-d.className=“cmsg-typing”;d.id=“typingDots”;
-d.innerHTML=’<div class="cdot"></div><div class="cdot"></div><div class="cdot"></div>’;
+let msgs=document.getElementById("chat-messages");
+let d=document.createElement("div");
+d.className="cmsg-typing";d.id="typingDots";
+d.innerHTML='<div class="cdot"></div><div class="cdot"></div><div class="cdot"></div>';
 msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
 }
 
 function removeTyping(){
-let el=document.getElementById(“typingDots”);
+let el=document.getElementById("typingDots");
 if(el)el.remove();
 }
 
 async function sendChat(){
-let input=document.getElementById(“chat-input”);
+let input=document.getElementById("chat-input");
 let text=input.value.trim();
 if(!text)return;
-addCMsg(text,“user”);
-chatHistory.push({role:“user”,content:text});
-input.value=””;showTyping();
+addCMsg(text,"user");
+chatHistory.push({role:"user",content:text});
+input.value="";showTyping();
 try{
-let res=await fetch(”/.netlify/functions/ai”,{
-method:“POST”,
-headers:{“Content-Type”:“application/json”},
-body:JSON.stringify({mode:“chat”,messages:chatHistory})
+let res=await fetch("/.netlify/functions/ai",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({mode:"chat",messages:chatHistory})
 });
 let data=await res.json();
 removeTyping();
-let reply=data.reply||“Sorry, couldn’t process that.”;
-addCMsg(reply,“ai”);
-chatHistory.push({role:“assistant”,content:reply});
+let reply=data.reply||"Sorry, couldn't process that.";
+addCMsg(reply,"ai");
+chatHistory.push({role:"assistant",content:reply});
 }catch(e){
 removeTyping();
-addCMsg(“Connection error — site must be live on Netlify.”,“ai”);
+addCMsg("Connection error - site must be live on Netlify.","ai");
 }
 }
 
 /* ── PARTICLES (unchanged) ── */
 
-particlesJS(“particles-js”,{
+particlesJS("particles-js",{
 particles:{
 number:{value:80},
 size:{value:3},
@@ -805,79 +781,79 @@ line_linked:{enable:true}
 /* ── RESERVATION DEMO ── */
 
 const tInfo={
-1:{l:“Table 1”,s:2},2:{l:“Table 2”,s:2},3:{l:“Table 3”,s:2},
-4:{l:“Table 4”,s:2},5:{l:“Table 5”,s:2},6:{l:“Table 6”,s:4},
-7:{l:“Table 7”,s:4},8:{l:“Table 8”,s:4},9:{l:“Table 9”,s:4},
-10:{l:“Table 10”,s:6},11:{l:“Table 11”,s:6},12:{l:“Private Room”,s:10},
-13:{l:“Bar Area”,s:8},14:{l:“Patio 1”,s:4},15:{l:“Patio 2”,s:4},
-16:{l:“Patio 3”,s:4},17:{l:“Patio 4”,s:4}
+1:{l:"Table 1",s:2},2:{l:"Table 2",s:2},3:{l:"Table 3",s:2},
+4:{l:"Table 4",s:2},5:{l:"Table 5",s:2},6:{l:"Table 6",s:4},
+7:{l:"Table 7",s:4},8:{l:"Table 8",s:4},9:{l:"Table 9",s:4},
+10:{l:"Table 10",s:6},11:{l:"Table 11",s:6},12:{l:"Private Room",s:10},
+13:{l:"Bar Area",s:8},14:{l:"Patio 1",s:4},15:{l:"Patio 2",s:4},
+16:{l:"Patio 3",s:4},17:{l:"Patio 4",s:4}
 };
 const defBooked=[4,8,16];
 let curTable=null;
 
 function openResModal(){
-document.getElementById(“resDate”).value=new Date().toISOString().split(“T”)[0];
-document.getElementById(“res-modal”).style.display=“flex”;
+document.getElementById("resDate").value=new Date().toISOString().split("T")[0];
+document.getElementById("res-modal").style.display="flex";
 }
 
 function closeResModal(){
-document.getElementById(“res-modal”).style.display=“none”;
+document.getElementById("res-modal").style.display="none";
 }
 
 function selTable(id){
-let el=document.getElementById(“t”+id);
-if(el.classList.contains(“booked”))return;
-if(curTable)document.getElementById(“t”+curTable).classList.remove(“selected”);
-curTable=id;el.classList.add(“selected”);
-document.getElementById(“resBadge”).textContent=tInfo[id].l+” · “+tInfo[id].s+” seats · Available”;
-document.getElementById(“resDefault”).style.display=“none”;
-document.getElementById(“resForm”).style.display=“block”;
-document.getElementById(“resSuccess”).style.display=“none”;
+let el=document.getElementById("t"+id);
+if(el.classList.contains("booked"))return;
+if(curTable)document.getElementById("t"+curTable).classList.remove("selected");
+curTable=id;el.classList.add("selected");
+document.getElementById("resBadge").textContent=tInfo[id].l+" · "+tInfo[id].s+" seats · Available";
+document.getElementById("resDefault").style.display="none";
+document.getElementById("resForm").style.display="block";
+document.getElementById("resSuccess").style.display="none";
 }
 
 function clearRes(){
-if(curTable){document.getElementById(“t”+curTable).classList.remove(“selected”);curTable=null;}
-document.getElementById(“resDefault”).style.display=“block”;
-document.getElementById(“resForm”).style.display=“none”;
+if(curTable){document.getElementById("t"+curTable).classList.remove("selected");curTable=null;}
+document.getElementById("resDefault").style.display="block";
+document.getElementById("resForm").style.display="none";
 }
 
 function confirmRes(){
-let name=document.getElementById(“resName”).value.trim();
-if(!name){document.getElementById(“resName”).focus();return;}
-let phone=document.getElementById(“resPhone”).value.trim();
-let date=document.getElementById(“resDate”).value;
-let time=document.getElementById(“resTime”).value;
-let party=document.getElementById(“resParty”).value||“2 guests”;
-let el=document.getElementById(“t”+curTable);
-el.classList.remove(“selected”);el.classList.add(“booked”);
-el.querySelector(”.tbl-c”).textContent=“booked”;
+let name=document.getElementById("resName").value.trim();
+if(!name){document.getElementById("resName").focus();return;}
+let phone=document.getElementById("resPhone").value.trim();
+let date=document.getElementById("resDate").value;
+let time=document.getElementById("resTime").value;
+let party=document.getElementById("resParty").value||"2 guests";
+let el=document.getElementById("t"+curTable);
+el.classList.remove("selected");el.classList.add("booked");
+el.querySelector(".tbl-c").textContent="booked";
 let td=tInfo[curTable];
-let parts=time.split(”:”);let hr=parseInt(parts[0]);
-let tStr=(hr>12?hr-12:hr)+”:”+parts[1]+(hr>=12?“pm”:“am”);
-let dStr=date?new Date(date+“T12:00:00”).toLocaleDateString(“en-GB”,{weekday:“short”,day:“numeric”,month:“short”}):“Tonight”;
-document.getElementById(“smsText”).textContent=
-“New reservation at Demo Vista — “+td.l+”, “+party+”, “+dStr+” at “+tStr+”. Booked by: “+name+(phone?” · “+phone:””);
-let pop=document.getElementById(“smsPop”);
-pop.classList.add(“show”);
-setTimeout(function(){pop.classList.remove(“show”);},5000);
-document.getElementById(“resForm”).style.display=“none”;
-document.getElementById(“resSuccess”).style.display=“flex”;
-document.getElementById(“resDet”).textContent=
-“Table: “+td.l+”\nGuests: “+party+”\nDate: “+dStr+”\nTime: “+tStr+”\nName: “+name+(phone?”\nPhone: “+phone:””)+”\n\n✓ SMS sent automatically\n✓ CRM updated\n✓ Reminder scheduled”;
+let parts=time.split(":");let hr=parseInt(parts[0]);
+let tStr=(hr>12?hr-12:hr)+":"+parts[1]+(hr>=12?"pm":"am");
+let dStr=date?new Date(date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"}):"Tonight";
+document.getElementById("smsText").textContent=
+"New reservation at Demo Vista - "+td.l+", "+party+", "+dStr+" at "+tStr+". Booked by: "+name+(phone?" · "+phone:"");
+let pop=document.getElementById("smsPop");
+pop.classList.add("show");
+setTimeout(function(){pop.classList.remove("show");},5000);
+document.getElementById("resForm").style.display="none";
+document.getElementById("resSuccess").style.display="flex";
+document.getElementById("resDet").textContent=
+"Table: "+td.l+"\nGuests: "+party+"\nDate: "+dStr+"\nTime: "+tStr+"\nName: "+name+(phone?"\nPhone: "+phone:"")+"\n\n✓ SMS sent automatically\n✓ CRM updated\n✓ Reminder scheduled";
 curTable=null;
 }
 
 function resetRes(){
 for(let i=1;i<=17;i++){
-let el=document.getElementById(“t”+i);
+let el=document.getElementById("t"+i);
 if(!el)continue;
-el.classList.remove(“booked”,“selected”);
-if(defBooked.includes(i)){el.classList.add(“booked”);el.querySelector(”.tbl-c”).textContent=“booked”;}
-else{el.querySelector(”.tbl-c”).textContent=tInfo[i].s+” seats”;}
+el.classList.remove("booked","selected");
+if(defBooked.includes(i)){el.classList.add("booked");el.querySelector(".tbl-c").textContent="booked";}
+else{el.querySelector(".tbl-c").textContent=tInfo[i].s+" seats";}
 }
-[“resName”,“resPhone”,“resEmail”,“resNotes”].forEach(function(id){document.getElementById(id).value=””;});
-document.getElementById(“resSuccess”).style.display=“none”;
-document.getElementById(“resDefault”).style.display=“block”;
+["resName","resPhone","resEmail","resNotes"].forEach(function(id){document.getElementById(id).value="";});
+document.getElementById("resSuccess").style.display="none";
+document.getElementById("resDefault").style.display="block";
 curTable=null;
 }
 
