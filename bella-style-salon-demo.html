@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bella Style Studio — AI Booking Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose:     #c9847a;
+  --rose-lt:  #e8b4ae;
+  --blush:    #f5e6e3;
+  --cream:    #fdf8f6;
+  --gold:     #b8965a;
+  --gold-dim: rgba(184,150,90,0.15);
+  --dark:     #2c1f1d;
+  --muted:    rgba(44,31,29,0.45);
+  --border:   rgba(201,132,122,0.2);
+  --surface:  rgba(253,248,246,0.97);
+  --glass:    rgba(253,248,246,0.6);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: linear-gradient(135deg, #f9eeeb 0%, #fdf8f6 50%, #f0e8e5 100%);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--dark);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* ── DEMO TRIGGER PAGE ── */
+.demo-page {
+  text-align: center;
+  max-width: 480px;
+}
+.demo-page h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--dark);
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.demo-page h1 em {
+  font-style: italic;
+  color: var(--rose);
+}
+.demo-page p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.open-btn {
+  background: var(--rose);
+  color: white;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 28px rgba(201,132,122,0.3);
+}
+.open-btn:hover {
+  background: #b8726a;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(201,132,122,0.4);
+}
+
+/* ── MODAL OVERLAY ── */
+#salon-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(44,31,29,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.salon-wrap {
+  background: var(--cream);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 980px;
+  max-height: 92vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(44,31,29,0.25);
+}
+
+.s-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: none; border: none;
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+.s-close:hover { color: var(--dark); }
+
+/* ── LEFT PANEL ── */
+.s-left {
+  padding: 36px 28px;
+  border-right: 1px solid var(--border);
+  background: var(--cream);
+  border-radius: 20px 0 0 20px;
+}
+
+.s-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.s-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--dark);
+  letter-spacing: 0.01em;
+}
+.s-tagline {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 18px;
+}
+
+.s-legend {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.s-leg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.s-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.d-av  { background: rgba(201,132,122,0.35); border: 1.5px solid var(--rose); }
+.d-bk  { background: rgba(184,150,90,0.25);  border: 1.5px solid var(--gold); }
+.d-sel { background: var(--rose); }
+
+/* ── SALON FLOOR ── */
+.salon-floor {
+  position: relative;
+  background: linear-gradient(145deg, #fef9f7, #f8eeea);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 16px;
+  min-height: 400px;
+}
+
+/* zone label */
+.s-zone {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(201,132,122,0.4);
+  margin-bottom: 14px;
+  padding-left: 2px;
+}
+
+/* chair rows */
+.chair-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.chair {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 10px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(201,132,122,0.08);
+}
+.chair:hover {
+  border-color: var(--rose);
+  box-shadow: 0 6px 20px rgba(201,132,122,0.2);
+  transform: translateY(-3px);
+}
+.chair.selected {
+  border-color: var(--rose);
+  background: rgba(201,132,122,0.06);
+  box-shadow: 0 8px 24px rgba(201,132,122,0.25);
+  transform: translateY(-3px);
+}
+.chair.booked {
+  border-color: rgba(184,150,90,0.4);
+  background: rgba(184,150,90,0.05);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.chair.booked:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(201,132,122,0.08);
+}
+
+.chair-icon {
+  font-size: 22px;
+  margin-bottom: 6px;
+  display: block;
+}
+.chair-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--dark);
+  letter-spacing: 0.05em;
+}
+.chair-stylist {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+.chair-status {
+  font-size: 0.62rem;
+  margin-top: 4px;
+  color: var(--rose);
+  font-weight: 500;
+}
+.chair.booked .chair-status {
+  color: var(--gold);
+}
+
+/* tooltip */
+.chair-tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark);
+  color: white;
+  font-size: 0.68rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 20;
+}
+.chair:hover .chair-tip { opacity: 1; }
+
+/* SMS popup */
+.sms-pop {
+  position: absolute;
+  top: 12px; left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  width: 270px;
+  box-shadow: 0 20px 50px rgba(44,31,29,0.18);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  z-index: 50;
+  pointer-events: none;
+}
+.sms-pop.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.sms-hdr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.sms-ico {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  background: var(--rose);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.sms-app { font-size: 0.72rem; font-weight: 500; color: var(--dark); }
+.sms-when { font-size: 0.65rem; color: var(--muted); margin-left: auto; }
+.sms-body { font-size: 0.78rem; color: var(--dark); line-height: 1.55; }
+
+/* ── RIGHT PANEL ── */
+.s-right {
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  border-radius: 0 20px 20px 0;
+}
+
+.s-panel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+.s-panel-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.s-badge {
+  background: var(--gold-dim);
+  border: 1px solid rgba(184,150,90,0.3);
+  color: var(--gold);
+  font-size: 0.72rem;
+  padding: 7px 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* form */
+.s-form { display: flex; flex-direction: column; gap: 10px; }
+.s-form input,
+.s-form select,
+.s-form textarea {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: white;
+  color: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.s-form input:focus,
+.s-form select:focus,
+.s-form textarea:focus {
+  border-color: var(--rose);
+}
+.s-form input::placeholder,
+.s-form textarea::placeholder {
+  color: rgba(44,31,29,0.3);
+}
+.s-form select option { background: white; color: var(--dark); }
+.s-form textarea { resize: none; height: 58px; }
+.s-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.s-confirm {
+  background: var(--rose);
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+}
+.s-confirm:hover {
+  background: #b8726a;
+  box-shadow: 0 6px 20px rgba(201,132,122,0.35);
+}
+.s-back {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  cursor: pointer;
+  width: 100%;
+  margin: 0;
+  transition: all 0.2s;
+}
+.s-back:hover { border-color: var(--rose); color: var(--rose); }
+
+/* success */
+.s-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 8px;
+  gap: 14px;
+}
+.s-sico {
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: rgba(201,132,122,0.1);
+  border: 2px solid var(--rose);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 0 30px rgba(201,132,122,0.2);
+  animation: rpulse 2s ease infinite;
+}
+@keyframes rpulse {
+  0%,100% { box-shadow: 0 0 20px rgba(201,132,122,0.15); }
+  50%      { box-shadow: 0 0 40px rgba(201,132,122,0.35); }
+}
+.s-success h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--dark);
+}
+.s-success p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 220px;
+}
+.s-det {
+  background: rgba(201,132,122,0.06);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.72rem;
+  color: var(--rose);
+  text-align: left;
+  width: 100%;
+  line-height: 2;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+}
+.s-reset {
+  background: var(--rose);
+  border: none;
+  padding: 11px;
+  border-radius: 10px;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.82rem;
+  cursor: pointer;
+  width: 100%;
+  margin: 0;
+  transition: all 0.2s;
+}
+.s-reset:hover { background: #b8726a; }
+.s-cta {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  cursor: pointer;
+  width: 100%;
+  margin: 0;
+  transition: all 0.2s;
+}
+.s-cta:hover { border-color: var(--rose); color: var(--rose); }
+
+@media(max-width:680px) {
+  .salon-wrap { grid-template-columns: 1fr; }
+  .s-left { border-right: none; border-bottom: 1px solid var(--border); border-radius: 20px 20px 0 0; }
+  .s-right { border-radius: 0 0 20px 20px; }
+  .chair-grid { grid-template-columns: repeat(4,1fr); gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-page">
+  <h1>AI Booking<br><em>for Salons</em></h1>
+  <p>See how Bella Style Studio uses AI to handle bookings, reduce no-shows, and notify staff automatically — 24/7.</p>
+  <button class="open-btn" onclick="openSalon()">✦ See Live Demo</button>
+</div>
+
+<!-- SALON MODAL -->
+<div id="salon-modal" onclick="if(event.target===this)closeSalon()">
+<div class="salon-wrap">
+
+  <!-- LEFT -->
+  <div class="s-left">
+    <button class="s-close" onclick="closeSalon()">✕</button>
+    <div class="s-brand">
+      <div class="s-name">Bella Style Studio</div>
+    </div>
+    <div class="s-tagline">// AI-Powered Booking · Select Your Chair</div>
+
+    <div class="s-legend">
+      <div class="s-leg"><div class="s-dot d-av"></div>Available</div>
+      <div class="s-leg"><div class="s-dot d-sel"></div>Selected</div>
+      <div class="s-leg"><div class="s-dot d-bk"></div>Booked</div>
+    </div>
+
+    <div class="salon-floor" id="salonFloor">
+
+      <!-- SMS popup -->
+      <div class="sms-pop" id="sSMSPop">
+        <div class="sms-hdr">
+          <div class="sms-ico">💬</div>
+          <div><div class="sms-app">Bella Style Bookings</div><div style="font-size:9px;color:var(--muted)">SMS Automation</div></div>
+          <div class="sms-when">now</div>
+        </div>
+        <div class="sms-body" id="sSMSText">New appointment at Bella Style Studio</div>
+      </div>
+
+      <div class="s-zone">// Styling Floor — 8 Chairs</div>
+
+      <div class="chair-grid">
+
+        <div class="chair" id="c1" onclick="selChair(1)">
+          <div class="chair-tip">Chair 1 · Sofia · Available</div>
+          <span class="chair-icon">💺</span>
+          <div class="chair-num">Chair 1</div>
+          <div class="chair-stylist">Sofia</div>
+          <div class="chair-status">Available</div>
+        </div>
+
+        <div class="chair booked" id="c2" onclick="selChair(2)">
+          <div class="chair-tip">Chair 2 · Isabella · Booked</div>
+          <span class="chair-icon">💺</span>
+          <div class="chair-num">Chair 2</div>
+          <div class="chair-stylist">Isabella</div>
+          <div class="chair-status">Booked</div>
+        </div>
+
+        <div class="chair" id="c3" onclick="selChair(3)">
+          <div class="chair-tip">Chair 3 · Luna · Available</div>
+          <span class="chair-icon">💺</span>
+          <div class="chair-num">Chair 3</div>
+          <div class="chair-stylist">Luna</div>
+          <div class="chair-status">Available</div>
+        </div>
+
+        <div class="chair" id="c4" onclick="selChair(4)">
+          <div class="chair-tip">Chair 4 · Valentina · Available</div>
+          <span class="chair-icon">💺</span>
+          <div class="chair-num">Chair 4</div>
+          <div class="chair-stylist">Valentina</div>
+          <div class="chair-status">Available</div>
+        </div>
+
+        <div class="chair booked" id="c5" onclick="selChair(5)">
+          <div class="chair-tip">Chair 5 · Camille · Booked</div>
+          <span class="chair-icon">💺</span>
+          <div class="chair-num">Chair 5</div>
+          <div class="chair-stylist">Camille</div>
+          <div class="chair-status">Booked</div>
+        </div>
+
+        <div class="chair" id="c6" onclick="selChair(6)">
+          <div class="chair-tip">Chair 6 · Aria · Available</div>
+          <span class="chair-icon">💺</span>
+          <div class="chair-num">Chair 6</div>
+          <div class="chair-stylist">Aria</div>
+          <div class="chair-status">Available</div>
+        </div>
+
+        <div class="chair" id="c7" onclick="selChair(7)">
+          <div class="chair-tip">Chair 7 · Bianca · Available</div>
+          <span class="chair-icon">💺</span>
+          <div class="chair-num">Chair 7</div>
+          <div class="chair-stylist">Bianca</div>
+          <div class="chair-status">Available</div>
+        </div>
+
+        <div class="chair booked" id="c8" onclick="selChair(8)">
+          <div class="chair-tip">Chair 8 · Celeste · Booked</div>
+          <span class="chair-icon">💺</span>
+          <div class="chair-num">Chair 8</div>
+          <div class="chair-stylist">Celeste</div>
+          <div class="chair-status">Booked</div>
+        </div>
+
+      </div><!-- /chair-grid -->
+    </div><!-- /salon-floor -->
+  </div><!-- /s-left -->
+
+  <!-- RIGHT -->
+  <div class="s-right">
+
+    <!-- Default -->
+    <div id="sDefault">
+      <div class="s-panel-title">Book Your Chair</div>
+      <div class="s-panel-hint">Select an available chair to begin your booking. Your stylist will be notified instantly.</div>
+      <div style="text-align:center;padding:60px 0 16px;font-size:36px;">✦</div>
+      <div style="text-align:center;font-size:0.78rem;color:var(--muted);line-height:1.7;">Click any <span style="color:var(--rose);font-weight:500">available chair</span> to begin.</div>
+    </div>
+
+    <!-- Form -->
+    <div id="sForm" style="display:none;">
+      <div class="s-panel-title">Reserve Your Chair</div>
+      <div class="s-badge" id="sBadge">Chair 1 · Sofia</div>
+      <div class="s-form">
+        <input id="sName" placeholder="Your full name" required>
+        <input id="sPhone" type="tel" placeholder="Phone number">
+        <input id="sEmail" type="email" placeholder="Email address">
+        <div class="s-row2">
+          <input id="sDate" type="date">
+          <input id="sTime" type="time" value="10:00">
+        </div>
+        <select id="sService">
+          <option value="">Select service</option>
+          <option>Cut & Style</option>
+          <option>Colour & Highlights</option>
+          <option>Blowout</option>
+          <option>Treatment & Mask</option>
+          <option>Full Package</option>
+        </select>
+        <textarea id="sNotes" placeholder="Any special requests..."></textarea>
+        <button class="s-confirm" onclick="confirmChair()">Confirm Appointment →</button>
+        <button class="s-back" onclick="clearChair()">← Choose different chair</button>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="s-success" id="sSuccess">
+      <div class="s-sico">✓</div>
+      <h3>You're Booked!</h3>
+      <p>Your stylist has been notified and a reminder will be sent before your appointment.</p>
+      <div class="s-det" id="sDet"></div>
+      <button class="s-reset" onclick="resetSalon()">Book Another →</button>
+      <button class="s-cta" onclick="closeSalon()">Build This For My Salon →</button>
+    </div>
+
+  </div><!-- /s-right -->
+</div><!-- /salon-wrap -->
+</div><!-- /salon-modal -->
+
+<script>
+const cInfo = {
+  1:{name:'Sofia',    s:'Chair 1'},
+  2:{name:'Isabella', s:'Chair 2'},
+  3:{name:'Luna',     s:'Chair 3'},
+  4:{name:'Valentina',s:'Chair 4'},
+  5:{name:'Camille',  s:'Chair 5'},
+  6:{name:'Aria',     s:'Chair 6'},
+  7:{name:'Bianca',   s:'Chair 7'},
+  8:{name:'Celeste',  s:'Chair 8'}
+};
+const defBooked = [2,5,8];
+let curChair = null;
+
+function openSalon() {
+  document.getElementById('sDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('salon-modal').style.display = 'flex';
+}
+function closeSalon() {
+  document.getElementById('salon-modal').style.display = 'none';
+}
+
+function selChair(id) {
+  const el = document.getElementById('c'+id);
+  if (el.classList.contains('booked')) return;
+  if (curChair) document.getElementById('c'+curChair).classList.remove('selected');
+  curChair = id;
+  el.classList.add('selected');
+  document.getElementById('sBadge').textContent = cInfo[id].s + ' · ' + cInfo[id].name + ' · Available';
+  document.getElementById('sDefault').style.display = 'none';
+  document.getElementById('sForm').style.display = 'block';
+  document.getElementById('sSuccess').style.display = 'none';
+}
+
+function clearChair() {
+  if (curChair) { document.getElementById('c'+curChair).classList.remove('selected'); curChair = null; }
+  document.getElementById('sDefault').style.display = 'block';
+  document.getElementById('sForm').style.display = 'none';
+}
+
+function confirmChair() {
+  const name = document.getElementById('sName').value.trim();
+  if (!name) { document.getElementById('sName').focus(); return; }
+  const phone   = document.getElementById('sPhone').value.trim();
+  const date    = document.getElementById('sDate').value;
+  const time    = document.getElementById('sTime').value;
+  const service = document.getElementById('sService').value || 'Cut & Style';
+  const el = document.getElementById('c'+curChair);
+  el.classList.remove('selected');
+  el.classList.add('booked');
+  el.querySelector('.chair-status').textContent = 'Booked';
+
+  const ci = cInfo[curChair];
+  const parts = time.split(':');
+  const hr = parseInt(parts[0]);
+  const tStr = (hr > 12 ? hr - 12 : hr || 12) + ':' + parts[1] + (hr >= 12 ? 'pm' : 'am');
+  const dStr = date ? new Date(date+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}) : 'Today';
+
+  document.getElementById('sSMSText').textContent =
+    '💅 New booking at Bella Style Studio — ' + ci.s + ' with ' + ci.name +
+    ', ' + service + ', ' + dStr + ' at ' + tStr +
+    '. Client: ' + name + (phone ? ' · ' + phone : '');
+
+  const pop = document.getElementById('sSMSPop');
+  pop.classList.add('show');
+  setTimeout(() => pop.classList.remove('show'), 5000);
+
+  document.getElementById('sForm').style.display = 'none';
+  document.getElementById('sSuccess').style.display = 'flex';
+  document.getElementById('sDet').textContent =
+    'Chair: ' + ci.s + ' · ' + ci.name +
+    '\nService: ' + service +
+    '\nDate: ' + dStr + ' at ' + tStr +
+    '\nClient: ' + name + (phone ? '\nPhone: ' + phone : '') +
+    '\n\n✓ Stylist notified instantly\n✓ SMS confirmation sent\n✓ Reminder scheduled 24hrs before';
+  curChair = null;
+}
+
+function resetSalon() {
+  for (let i = 1; i <= 8; i++) {
+    const el = document.getElementById('c'+i);
+    el.classList.remove('booked','selected');
+    if (defBooked.includes(i)) {
+      el.classList.add('booked');
+      el.querySelector('.chair-status').textContent = 'Booked';
+    } else {
+      el.querySelector('.chair-status').textContent = 'Available';
+    }
+  }
+  ['sName','sPhone','sEmail','sNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('sService').selectedIndex = 0;
+  document.getElementById('sSuccess').style.display = 'none';
+  document.getElementById('sDefault').style.display = 'block';
+}
+</script>
+</body>
+</html>
